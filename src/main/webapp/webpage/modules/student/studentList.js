@@ -59,7 +59,7 @@ $(document).ready(function() {
                    }else if($el.data("item") == "view"){
                        view(row.id);
                    } else if($el.data("item") == "delete"){
-                        jp.confirm('确认要删除该学生记录吗？', function(){
+                        jp.confirm('确认要删除该学生管理记录吗？', function(){
                        	jp.loading();
                        	jp.get("${ctx}/student/student/delete?id="+row.id, function(data){
                    	  		if(data.success){
@@ -106,10 +106,59 @@ $(document).ready(function() {
 		       
 		    }
 			,{
+		        field: 'place',
+		        title: '名次',
+		        sortable: true,
+		        sortName: 'place'
+		       
+		    }
+			,{
+		        field: 'studentId',
+		        title: '学号',
+		        sortable: true,
+		        sortName: 'studentId'
+		       
+		    }
+			,{
 		        field: 'name',
 		        title: '姓名',
 		        sortable: true,
 		        sortName: 'name'
+		       
+		    }
+			,{
+		        field: 'sex',
+		        title: '性别',
+		        sortable: true,
+		        sortName: 'sex'
+		       
+		    }
+			,{
+		        field: 'age',
+		        title: '年龄',
+		        sortable: true,
+		        sortName: 'age'
+		       
+		    }
+			,{
+		        field: 'grade',
+		        title: '年级',
+		        sortable: true,
+		        sortName: 'grade'
+		       
+		    }
+			,{
+		        field: 'teacher',
+		        title: '老师',
+		        sortable: true,
+		        sortName: 'teacher'
+		       
+		    }
+			,{
+		        field: 'score',
+		        title: '成绩',
+		        sortable: true,
+		        sortName: 'score'
 		       
 		    }
 		     ]
@@ -188,7 +237,7 @@ $(document).ready(function() {
   
   function deleteAll(){
 
-		jp.confirm('确认要删除该学生记录吗？', function(){
+		jp.confirm('确认要删除该学生管理记录吗？', function(){
 			jp.loading();  	
 			jp.get("${ctx}/student/student/deleteAll?ids=" + getIdSelections(), function(data){
          	  		if(data.success){
@@ -208,7 +257,7 @@ $(document).ready(function() {
   }
   
    function add(){
-	  jp.openSaveDialog('新增学生', "${ctx}/student/student/form",'800px', '500px');
+	  jp.openSaveDialog('新增学生管理', "${ctx}/student/student/form",'800px', '500px');
   }
 
 
@@ -217,14 +266,14 @@ $(document).ready(function() {
        if(id == undefined){
 	      id = getIdSelections();
 	}
-	jp.openSaveDialog('编辑学生', "${ctx}/student/student/form?id=" + id, '800px', '500px');
+	jp.openSaveDialog('编辑学生管理', "${ctx}/student/student/form?id=" + id, '800px', '500px');
   }
   
  function view(id){//没有权限时，不显示确定按钮
       if(id == undefined){
              id = getIdSelections();
       }
-        jp.openViewDialog('查看学生', "${ctx}/student/student/form?id=" + id, '800px', '500px');
+        jp.openViewDialog('查看学生管理', "${ctx}/student/student/form?id=" + id, '800px', '500px');
  }
 
 

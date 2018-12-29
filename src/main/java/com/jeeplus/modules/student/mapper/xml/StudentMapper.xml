@@ -10,7 +10,14 @@
 		a.update_date AS "updateDate",
 		a.remarks AS "remarks",
 		a.del_flag AS "delFlag",
-		a.name AS "name"
+		a.place AS "place",
+		a.student_id AS "studentId",
+		a.name AS "name",
+		a.sex AS "sex",
+		a.age AS "age",
+		a.grade AS "grade",
+		a.teacher AS "teacher",
+		a.score AS "score"
 	</sql>
 	
 	<sql id="studentJoins">
@@ -21,7 +28,7 @@
 	<select id="get" resultType="Student" >
 		SELECT 
 			<include refid="studentColumns"/>
-		FROM test_student a
+		FROM student a
 		<include refid="studentJoins"/>
 		WHERE a.id = #{id}
 	</select>
@@ -29,7 +36,7 @@
 	<select id="findList" resultType="Student" >
 		SELECT 
 			<include refid="studentColumns"/>
-		FROM test_student a
+		FROM student a
 		<include refid="studentJoins"/>
 		<where>
 			a.del_flag = #{DEL_FLAG_NORMAL}
@@ -48,7 +55,7 @@
 	<select id="findAllList" resultType="Student" >
 		SELECT 
 			<include refid="studentColumns"/>
-		FROM test_student a
+		FROM student a
 		<include refid="studentJoins"/>
 		<where>
 			a.del_flag = #{DEL_FLAG_NORMAL}
@@ -65,7 +72,7 @@
 	</select>
 	
 	<insert id="insert">
-		INSERT INTO test_student(
+		INSERT INTO student(
 			id,
 			create_by,
 			create_date,
@@ -73,7 +80,14 @@
 			update_date,
 			remarks,
 			del_flag,
-			name
+			place,
+			student_id,
+			name,
+			sex,
+			age,
+			grade,
+			teacher,
+			score
 		) VALUES (
 			#{id},
 			#{createBy.id},
@@ -82,29 +96,43 @@
 			#{updateDate},
 			#{remarks},
 			#{delFlag},
-			#{name}
+			#{place},
+			#{studentId},
+			#{name},
+			#{sex},
+			#{age},
+			#{grade},
+			#{teacher},
+			#{score}
 		)
 	</insert>
 	
 	<update id="update">
-		UPDATE test_student SET 	
+		UPDATE student SET 	
 			update_by = #{updateBy.id},
 			update_date = #{updateDate},
 			remarks = #{remarks},
-			name = #{name}
+			place = #{place},
+			student_id = #{studentId},
+			name = #{name},
+			sex = #{sex},
+			age = #{age},
+			grade = #{grade},
+			teacher = #{teacher},
+			score = #{score}
 		WHERE id = #{id}
 	</update>
 	
 	
 	<!--物理删除-->
 	<update id="delete">
-		DELETE FROM test_student
+		DELETE FROM student
 		WHERE id = #{id}
 	</update>
 	
 	<!--逻辑删除-->
 	<update id="deleteByLogic">
-		UPDATE test_student SET 
+		UPDATE student SET 
 			del_flag = #{DEL_FLAG_DELETE}
 		WHERE id = #{id}
 	</update>
@@ -112,7 +140,7 @@
 	
 	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
 	<select id="findUniqueByProperty" resultType="Student" statementType="STATEMENT">
-		select * FROM test_student  where ${propertyName} = '${value}'
+		select * FROM student  where ${propertyName} = '${value}'
 	</select>
 	
 </mapper>

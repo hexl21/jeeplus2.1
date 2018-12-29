@@ -8,9 +8,9 @@ import com.jeeplus.core.persistence.annotation.MyBatisMapper;
 import com.jeeplus.modules.student.entity.Student;
 
 /**
- * 多对多MAPPER接口
- * @author 某人8
- * @version 2018-12-27
+ * 管理学生MAPPER接口
+ * @author 高龙
+ * @version 2018-12-29
  */
 @MyBatisMapper
 public interface StudentMapper extends BaseMapper<Student> {

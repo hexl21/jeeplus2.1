@@ -2,7 +2,7 @@
 <%@ include file="/webpage/include/taglib.jsp"%>
 <html>
 <head>
-	<title>学生管理</title>
+	<title>学生管理管理</title>
 	<meta name="decorator" content="ani"/>
 	<script type="text/javascript">
 
@@ -41,11 +41,49 @@
 					<td class="width-35">
 						<form:textarea path="remarks" htmlEscape="false" rows="4"    class="form-control "/>
 					</td>
+					<td class="width-15 active"><label class="pull-right">名次：</label></td>
+					<td class="width-35">
+						<form:input path="place" htmlEscape="false"    class="form-control "/>
+					</td>
+				</tr>
+				<tr>
+					<td class="width-15 active"><label class="pull-right">学号：</label></td>
+					<td class="width-35">
+						<form:input path="studentId" htmlEscape="false"    class="form-control "/>
+					</td>
 					<td class="width-15 active"><label class="pull-right">姓名：</label></td>
 					<td class="width-35">
 						<form:input path="name" htmlEscape="false"    class="form-control "/>
 					</td>
 				</tr>
+				<tr>
+					<td class="width-15 active"><label class="pull-right">性别：</label></td>
+					<td class="width-35">
+						<form:input path="sex" htmlEscape="false"    class="form-control "/>
+					</td>
+					<td class="width-15 active"><label class="pull-right">年龄：</label></td>
+					<td class="width-35">
+						<form:input path="age" htmlEscape="false"    class="form-control "/>
+					</td>
+				</tr>
+				<tr>
+					<td class="width-15 active"><label class="pull-right">年级：</label></td>
+					<td class="width-35">
+						<form:input path="grade" htmlEscape="false"    class="form-control "/>
+					</td>
+					<td class="width-15 active"><label class="pull-right">老师：</label></td>
+					<td class="width-35">
+						<form:input path="teacher" htmlEscape="false"    class="form-control "/>
+					</td>
+				</tr>
+				<tr>
+					<td class="width-15 active"><label class="pull-right">成绩：</label></td>
+					<td class="width-35">
+						<form:input path="score" htmlEscape="false"    class="form-control "/>
+					</td>
+					<td class="width-15 active"></td>
+		   			<td class="width-35" ></td>
+		  		</tr>
 		 	</tbody>
 		</table>
 	</form:form>
