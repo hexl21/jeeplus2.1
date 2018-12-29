@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.weixin.mapper.WxTplMsgSubMapper">
+
+    <sql id="wxTplMsgSubColumns">
+		a.id AS "id",
+		a.tpl_id AS "tplId",
+		a.name AS "name",
+		a.title AS "title",
+		a.create_date AS "createDate",
+		a.sort AS "sort"
+	</sql>
+
+    <sql id="wxTplMsgSubJoins">
+
+    </sql>
+
+
+    <select id="get" resultType="WxTplMsgSub">
+        SELECT
+        <include refid="wxTplMsgSubColumns"/>
+        FROM wx_tpl_msg_sub a
+        <include refid="wxTplMsgSubJoins"/>
+        WHERE a.id = #{id}
+    </select>
+
+    <select id="findList" resultType="WxTplMsgSub">
+        SELECT
+        <include refid="wxTplMsgSubColumns"/>
+        FROM wx_tpl_msg_sub a
+        <include refid="wxTplMsgSubJoins"/>
+        <where>
+
+            ${dataScope}
+        </where>
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+                ORDER BY ${page.orderBy}
+            </when>
+            <otherwise>
+                ORDER by a.sort
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findAllList" resultType="WxTplMsgSub">
+        SELECT
+        <include refid="wxTplMsgSubColumns"/>
+        FROM wx_tpl_msg_sub a
+        <include refid="wxTplMsgSubJoins"/>
+        <where>
+
+            ${dataScope}
+        </where>
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+                ORDER BY ${page.orderBy}
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+
+    <insert id="insert">
+		INSERT INTO wx_tpl_msg_sub(
+			id,
+			tpl_id,
+			name,
+			title,
+			create_date,
+			sort
+		) VALUES (
+			#{id},
+			#{tplId},
+			#{name},
+			#{title},
+			#{createDate},
+			#{sort}
+		)
+	</insert>
+
+    <update id="update">
+		UPDATE wx_tpl_msg_sub SET 	
+			tpl_id = #{tplId},
+			name = #{name},
+			title = #{title},
+			sort = #{sort}
+		WHERE id = #{id}
+	</update>
+
+
+    <!--物理删除-->
+    <update id="delete">
+		DELETE FROM wx_tpl_msg_sub
+		WHERE id = #{id}
+	</update>
+
+    <!--逻辑删除-->
+    <update id="deleteByLogic">
+		UPDATE wx_tpl_msg_sub SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+
+
+    <!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+    <select id="findUniqueByProperty" resultType="WxTplMsgSub" statementType="STATEMENT">
+		select * FROM wx_tpl_msg_sub  where ${propertyName} = '${value}'
+	</select>
+
+</mapper>

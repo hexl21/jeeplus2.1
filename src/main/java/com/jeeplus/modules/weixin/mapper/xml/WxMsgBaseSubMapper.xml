@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.weixin.mapper.WxMsgBaseSubMapper">
+    
+	<sql id="wxMsgBaseSubColumns">
+		a.id AS "id",
+		a.base_id AS "baseId",
+		a.create_date AS "createDate",
+		a.foreign_id AS "foreignId",
+		a.foreign_type AS "foreignType",
+		a.remarks AS "remarks",
+		a.foreign_title AS "foreignTitle",
+		a.rule AS "rule"
+	</sql>
+	
+	<sql id="wxMsgBaseSubJoins">
+		
+	</sql>
+	
+    
+	<select id="get" resultType="WxMsgBaseSub" >
+		SELECT 
+			<include refid="wxMsgBaseSubColumns"/>
+		FROM wx_msg_base_sub a
+		<include refid="wxMsgBaseSubJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="WxMsgBaseSub" >
+		SELECT 
+			<include refid="wxMsgBaseSubColumns"/>
+		FROM wx_msg_base_sub a
+		<include refid="wxMsgBaseSubJoins"/>
+		<where>
+			
+			${dataScope}
+			<if test="baseId != null and baseId != ''">
+				AND a.base_id = #{baseId}
+			</if>
+			<if test="rule != null and rule != ''">
+				AND a.rule = #{rule}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="WxMsgBaseSub" >
+		SELECT 
+			<include refid="wxMsgBaseSubColumns"/>
+		FROM wx_msg_base_sub a
+		<include refid="wxMsgBaseSubJoins"/>
+		<where>
+			
+			${dataScope}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO wx_msg_base_sub(
+			id,
+			base_id,
+			create_date,
+			foreign_id,
+			foreign_type,
+			remarks,
+			foreign_title,
+			rule
+		) VALUES (
+			#{id},
+			#{baseId},
+			#{createDate},
+			#{foreignId},
+			#{foreignType},
+			#{remarks},
+			#{foreignTitle},
+			#{rule}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE wx_msg_base_sub SET 	
+			base_id = #{baseId},
+			foreign_id = #{foreignId},
+			foreign_type = #{foreignType},
+			remarks = #{remarks},
+			foreign_title = #{foreignTitle},
+			rule = #{rule}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM wx_msg_base_sub
+		WHERE id = #{id}
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE wx_msg_base_sub SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="WxMsgBaseSub" statementType="STATEMENT">
+		select * FROM wx_msg_base_sub  where ${propertyName} = '${value}'
+	</select>
+	
+</mapper>

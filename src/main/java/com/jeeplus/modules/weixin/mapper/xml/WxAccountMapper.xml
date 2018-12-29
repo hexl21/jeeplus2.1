@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.weixin.mapper.WxAccountMapper">
+
+    <sql id="wxAccountColumns">
+		a.id AS "id",
+		a.name AS "name",
+		a.account AS "account",
+		a.appid AS "appid",
+		a.appsecret AS "appsecret",
+		a.url AS "url",
+		a.token AS "token",
+		a.mch_id AS "mchId",
+		a.mch_name AS "mchName",
+		a.mch_key AS "mchKey",
+		a.msg_count AS "msgCount",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.is_default AS "isDefault"
+	</sql>
+
+    <sql id="wxAccountJoins">
+
+    </sql>
+
+
+    <select id="get" resultType="WxAccount">
+        SELECT
+        <include refid="wxAccountColumns"/>
+        FROM wx_account a
+        <include refid="wxAccountJoins"/>
+        WHERE a.id = #{id}
+    </select>
+
+    <select id="getDefault" resultType="WxAccount">
+        SELECT
+        <include refid="wxAccountColumns"/>
+        FROM wx_account a
+        <include refid="wxAccountJoins"/>
+		where
+        a.is_default=1
+    </select>
+
+    <select id="findList" resultType="WxAccount">
+        SELECT
+        <include refid="wxAccountColumns"/>
+        FROM wx_account a
+        <include refid="wxAccountJoins"/>
+        <where>
+            a.del_flag = #{DEL_FLAG_NORMAL}
+            ${dataScope}
+
+        </where>
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+                ORDER BY ${page.orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.update_date DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findAllList" resultType="WxAccount">
+        SELECT
+        <include refid="wxAccountColumns"/>
+        FROM wx_account a
+        <include refid="wxAccountJoins"/>
+        <where>
+            a.del_flag = #{DEL_FLAG_NORMAL}
+            ${dataScope}
+        </where>
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+                ORDER BY ${page.orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.update_date DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <insert id="insert">
+		INSERT INTO wx_account(
+			id,
+			name,
+			account,
+			appid,
+			appsecret,
+			url,
+			token,
+			mch_id,
+		    mch_name,
+		    mch_key,
+			msg_count,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag,
+			is_default
+		) VALUES (
+			#{id},
+			#{name},
+			#{account},
+			#{appid},
+			#{appsecret},
+			#{url},
+			#{token},
+			#{mchId},
+			#{mchName},
+			#{mchKey},
+			#{msgCount},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag},
+			#{isDefault}
+		)
+	</insert>
+
+    <update id="update">
+		UPDATE wx_account SET 	
+			name = #{name},
+			account = #{account},
+			appid = #{appid},
+			appsecret = #{appsecret},
+			url = #{url},
+			token = #{token},
+			mch_id = #{mchId},
+		    mch_name = #{mchName},
+		    mch_key = #{mchKey},
+			msg_count = #{msgCount},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			is_default = #{isDefault}
+		WHERE id = #{id}
+	</update>
+
+    <update id="updateDefault">
+		UPDATE wx_account SET
+			is_default = #{isDefault}
+		WHERE id = #{id}
+	</update>
+    <!--物理删除-->
+    <update id="delete">
+		DELETE FROM wx_account
+		WHERE id = #{id}
+	</update>
+
+    <!--逻辑删除-->
+    <update id="deleteByLogic">
+		UPDATE wx_account SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+
+
+    <!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+    <select id="findUniqueByProperty" resultType="WxAccount" statementType="STATEMENT">
+		select * FROM wx_account  where ${propertyName} = '${value}'
+	</select>
+
+</mapper>

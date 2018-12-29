@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.tree.tree.mapper.TreeeMapper">
+
+    <resultMap id="treeeResult" type="Treee">
+   		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="sort" column="sort" />
+		<result property="parentIds" column="parentIds" />
+		<result property="sheng" column="sheng" />
+		<result property="shi" column="shi" />
+		<result property="xian" column="xian" />
+		<result property="zhen" column="zhen" />
+		<association property="hasChildren" column="id" select="hasChildren" />
+    </resultMap>
+    
+	<sql id="treeeColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag",
+		a.parent_id AS "parent.id",
+		a.parent_ids AS "parentIds",
+		a.name AS "name",
+		a.sort AS "sort",
+		a.sheng AS "sheng",
+		a.shi AS "shi",
+		a.xian AS "xian",
+		a.zhen AS "zhen"
+	</sql>
+	
+
+	
+
+	<sql id="treeeJoins">
+		
+	</sql>
+	
+
+    
+	<select id="get" resultType="Treee">
+		SELECT 
+			<include refid="treeeColumns"/>
+		FROM treee a
+		<include refid="treeeJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Treee">
+		SELECT 
+			<include refid="treeeColumns"/>
+		FROM treee a
+		<include refid="treeeJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			${dataScope}
+			<if test="parent != null and parent.id != null and parent.id != ''">
+				AND a.parent_id = #{parent.id}
+			</if>
+			<if test="parentIds != null and parentIds != ''">
+				AND a.parent_ids LIKE 
+					<if test="dbName == 'oracle'">'%'||#{parentIds}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{parentIds}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{parentIds},'%')</if>
+			</if>
+			<if test="name != null and name != ''">
+				AND a.name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+			</if>
+			<if test="sheng != null and sheng != ''">
+				AND a.sheng = #{sheng}
+			</if>
+			<if test="shi != null and shi != ''">
+				AND a.shi = #{shi}
+			</if>
+			<if test="xian != null and xian != ''">
+				AND a.xian = #{xian}
+			</if>
+			<if test="zhen != null and zhen != ''">
+				AND a.zhen = #{zhen}
+			</if>
+		</where>
+		ORDER BY a.sort ASC
+	</select>
+	
+	<select id="findAllList" resultType="Treee">
+		SELECT 
+			<include refid="treeeColumns"/>
+		FROM treee a
+		<include refid="treeeJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			${dataScope}
+		</where>
+		ORDER BY a.sort ASC
+	</select>
+	
+	<select id="getChildren" parameterType="String" resultMap="treeeResult">  
+        select * from treee where parent_id = #{id} ORDER BY sort 
+    </select> 
+     
+    <select id="hasChildren" parameterType="String" resultType="Boolean">
+        select case when exists(select 1 from treee where parent_id = #{id}) then 1 else 0 end ${dual}
+    </select>
+    
+	<select id="findByParentIdsLike" resultType="Treee">
+		SELECT
+			a.id,
+			a.parent_id AS "parent.id",
+			a.parent_ids
+		FROM treee a
+		<include refid="treeeJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			AND a.parent_ids LIKE #{parentIds}
+		</where>
+		ORDER BY a.sort ASC
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO treee(
+			id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag,
+			parent_id,
+			parent_ids,
+			name,
+			sort,
+			sheng,
+			shi,
+			xian,
+			zhen
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag},
+			#{parent.id},
+			#{parentIds},
+			#{name},
+			#{sort},
+			#{sheng},
+			#{shi},
+			#{xian},
+			#{zhen}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE treee SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks},
+			parent_id = #{parent.id},
+			parent_ids = #{parentIds},
+			name = #{name},
+			sort = #{sort},
+			sheng = #{sheng},
+			shi = #{shi},
+			xian = #{xian},
+			zhen = #{zhen}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateParentIds">
+		UPDATE treee SET 
+			parent_id = #{parent.id}, 
+			parent_ids = #{parentIds}
+		WHERE id = #{id}
+	</update>
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM treee
+		WHERE id = #{id} OR parent_ids LIKE 
+		<if test="dbName == 'oracle'">'%,'||#{id}||',%'</if>
+		<if test="dbName == 'mssql'">'%,'+#{id}+',%'</if>
+        <if test="dbName == 'mysql'">CONCAT('%,', #{id}, ',%')</if>
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE treee SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id} OR parent_ids LIKE 
+		<if test="dbName == 'oracle'">'%,'||#{id}||',%'</if>
+		<if test="dbName == 'mssql'">'%,'+#{id}+',%'</if>
+        <if test="dbName == 'mysql'">CONCAT('%,', #{id}, ',%')</if>
+	</update>
+	
+</mapper>

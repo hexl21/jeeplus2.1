@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.weixin.mapper.WxMediaFilesMapper">
+    
+	<sql id="wxMediaFilesColumns">
+		a.id AS "id",
+		a.media_type AS "mediaType",
+		a.title AS "title",
+		a.introduction AS "introduction",
+		a.logic_class AS "logicClass",
+		a.media_id AS "mediaId",
+		a.upload_url AS "uploadUrl",
+		a.account AS "account",
+		a.remarks AS "remarks",
+		a.create_date AS "createDate",
+		a.create_by AS "createBy.id",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="wxMediaFilesJoins">
+		
+	</sql>
+    
+
+	<select id="get" resultType="WxMediaFiles" >
+		SELECT
+		<include refid="wxMediaFilesColumns"/>
+		FROM wx_media_files a
+		<include refid="wxMediaFilesJoins"/>
+		WHERE a.id = #{id}
+	</select>
+
+	<select id="getFiles" resultType="WxMediaFiles" >
+		SELECT
+		<include refid="wxMediaFilesColumns"/>
+		FROM wx_media_files a
+		<include refid="wxMediaFilesJoins"/>
+		WHERE a.upload_url = #{uploadUrl}
+	</select>
+
+
+	<select id="findList" resultType="WxMediaFiles" >
+		SELECT 
+			<include refid="wxMediaFilesColumns"/>
+		FROM wx_media_files a
+		<include refid="wxMediaFilesJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			${dataScope}
+			<if test="mediaType != null and mediaType != ''">
+				AND a.media_type = #{mediaType}
+			</if>
+			<if test="title != null and title != ''">
+				AND a.title LIKE 
+					<if test="dbName == 'oracle'">'%'||#{title}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{title}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{title},'%')</if>
+			</if>
+			<if test="account != null and account != ''">
+				AND a.account = #{account}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="WxMediaFiles" >
+		SELECT 
+			<include refid="wxMediaFilesColumns"/>
+		FROM wx_media_files a
+		<include refid="wxMediaFilesJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			${dataScope}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO wx_media_files(
+			id,
+			media_type,
+			title,
+			introduction,
+			logic_class,
+			media_id,
+			upload_url,
+			account,
+			remarks,
+			create_date,
+			create_by,
+			update_by,
+			update_date,
+			del_flag
+		) VALUES (
+			#{id},
+			#{mediaType},
+			#{title},
+			#{introduction},
+			#{logicClass},
+			#{mediaId},
+			#{uploadUrl},
+			#{account},
+			#{remarks},
+			#{createDate},
+			#{createBy.id},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE wx_media_files SET 	
+			media_type = #{mediaType},
+			title = #{title},
+			introduction = #{introduction},
+			logic_class = #{logicClass},
+			media_id = #{mediaId},
+			upload_url = #{uploadUrl},
+			account = #{account},
+			remarks = #{remarks},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM wx_media_files
+		WHERE id = #{id}
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE wx_media_files SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="WxMediaFiles" statementType="STATEMENT">
+		select * FROM wx_media_files  where ${propertyName} = '${value}'
+	</select>
+	
+</mapper>
