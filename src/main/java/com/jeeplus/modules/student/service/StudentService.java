@@ -14,9 +14,9 @@ import com.jeeplus.modules.student.entity.Student;
 import com.jeeplus.modules.student.mapper.StudentMapper;
 
 /**
- * 多对多Service
- * @author 某人8
- * @version 2018-12-27
+ * 管理学生Service
+ * @author 高龙
+ * @version 2018-12-29
  */
 @Service
 @Transactional(readOnly = true)

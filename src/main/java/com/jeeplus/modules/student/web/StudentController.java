@@ -35,9 +35,9 @@ import com.jeeplus.modules.student.entity.Student;
 import com.jeeplus.modules.student.service.StudentService;
 
 /**
- * 多对多Controller
- * @author 某人8
- * @version 2018-12-27
+ * 管理学生Controller
+ * @author 高龙
+ * @version 2018-12-29
  */
 @Controller
 @RequestMapping(value = "${adminPath}/student/student")
@@ -59,7 +59,7 @@ public class StudentController extends BaseController {
 	}
 	
 	/**
-	 * 学生列表页面
+	 * 学生管理列表页面
 	 */
 	@RequiresPermissions("student:student:list")
 	@RequestMapping(value = {"list", ""})
@@ -69,7 +69,7 @@ public class StudentController extends BaseController {
 	}
 	
 		/**
-	 * 学生列表数据
+	 * 学生管理列表数据
 	 */
 	@ResponseBody
 	@RequiresPermissions("student:student:list")
@@ -80,7 +80,7 @@ public class StudentController extends BaseController {
 	}
 
 	/**
-	 * 查看，增加，编辑学生表单页面
+	 * 查看，增加，编辑学生管理表单页面
 	 */
 	@RequiresPermissions(value={"student:student:view","student:student:add","student:student:edit"},logical=Logical.OR)
 	@RequestMapping(value = "form")
@@ -90,7 +90,7 @@ public class StudentController extends BaseController {
 	}
 
 	/**
-	 * 保存学生
+	 * 保存学生管理
 	 */
 	@ResponseBody
 	@RequiresPermissions(value={"student:student:add","student:student:edit"},logical=Logical.OR)
@@ -109,12 +109,12 @@ public class StudentController extends BaseController {
 		//新增或编辑表单保存
 		studentService.save(student);//保存
 		j.setSuccess(true);
-		j.setMsg("保存学生成功");
+		j.setMsg("保存学生管理成功");
 		return j;
 	}
 	
 	/**
-	 * 删除学生
+	 * 删除学生管理
 	 */
 	@ResponseBody
 	@RequiresPermissions("student:student:del")
@@ -122,12 +122,12 @@ public class StudentController extends BaseController {
 	public AjaxJson delete(Student student) {
 		AjaxJson j = new AjaxJson();
 		studentService.delete(student);
-		j.setMsg("删除学生成功");
+		j.setMsg("删除学生管理成功");
 		return j;
 	}
 	
 	/**
-	 * 批量删除学生
+	 * 批量删除学生管理
 	 */
 	@ResponseBody
 	@RequiresPermissions("student:student:del")
@@ -138,7 +138,7 @@ public class StudentController extends BaseController {
 		for(String id : idArray){
 			studentService.delete(studentService.get(id));
 		}
-		j.setMsg("删除学生成功");
+		j.setMsg("删除学生管理成功");
 		return j;
 	}
 	
@@ -151,15 +151,15 @@ public class StudentController extends BaseController {
     public AjaxJson exportFile(Student student, HttpServletRequest request, HttpServletResponse response) {
 		AjaxJson j = new AjaxJson();
 		try {
-            String fileName = "学生"+DateUtils.getDate("yyyyMMddHHmmss")+".xlsx";
+            String fileName = "学生管理"+DateUtils.getDate("yyyyMMddHHmmss")+".xlsx";
             Page<Student> page = studentService.findPage(new Page<Student>(request, response, -1), student);
-    		new ExportExcel("学生", Student.class).setDataList(page.getList()).write(response, fileName).dispose();
+    		new ExportExcel("学生管理", Student.class).setDataList(page.getList()).write(response, fileName).dispose();
     		j.setSuccess(true);
     		j.setMsg("导出成功！");
     		return j;
 		} catch (Exception e) {
 			j.setSuccess(false);
-			j.setMsg("导出学生记录失败！失败信息："+e.getMessage());
+			j.setMsg("导出学生管理记录失败！失败信息："+e.getMessage());
 		}
 			return j;
     }
@@ -190,18 +190,18 @@ public class StudentController extends BaseController {
 				}
 			}
 			if (failureNum>0){
-				failureMsg.insert(0, "，失败 "+failureNum+" 条学生记录。");
+				failureMsg.insert(0, "，失败 "+failureNum+" 条学生管理记录。");
 			}
-			j.setMsg( "已成功导入 "+successNum+" 条学生记录"+failureMsg);
+			j.setMsg( "已成功导入 "+successNum+" 条学生管理记录"+failureMsg);
 		} catch (Exception e) {
 			j.setSuccess(false);
-			j.setMsg("导入学生失败！失败信息："+e.getMessage());
+			j.setMsg("导入学生管理失败！失败信息："+e.getMessage());
 		}
 		return j;
     }
 	
 	/**
-	 * 下载导入学生数据模板
+	 * 下载导入学生管理数据模板
 	 */
 	@ResponseBody
 	@RequiresPermissions("student:student:import")
@@ -209,9 +209,9 @@ public class StudentController extends BaseController {
      public AjaxJson importFileTemplate(HttpServletResponse response) {
 		AjaxJson j = new AjaxJson();
 		try {
-            String fileName = "学生数据导入模板.xlsx";
+            String fileName = "学生管理数据导入模板.xlsx";
     		List<Student> list = Lists.newArrayList(); 
-    		new ExportExcel("学生数据", Student.class, 1).setDataList(list).write(response, fileName).dispose();
+    		new ExportExcel("学生管理数据", Student.class, 1).setDataList(list).write(response, fileName).dispose();
     		return null;
 		} catch (Exception e) {
 			j.setSuccess(false);
