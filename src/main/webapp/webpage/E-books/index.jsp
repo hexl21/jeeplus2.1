@@ -9,6 +9,23 @@
 		<script type="text/javascript" src="js/jquery.1.8.2.min.js" ></script>
 		<script type="text/javascript" src="js/TouchSlide.1.1.js" ></script>
 		<script type="text/javascript" src="js/book.js" ></script>
+		<script type="text/javascript">
+			$(function () {
+                alert("1");
+                $.ajax({
+                    url: "${pageContext.request.contextPath}/admin/books/books/data",
+                    dataType: "JSON",
+                    type: "post",
+                    success: function (dta) {
+
+                        alert("2");
+                        console.log(dta);
+
+                    },
+                });
+            })
+
+		</script>
 		<title>首页</title>
 	</head>
 <body style="background: #f1f1f1;">
@@ -65,7 +82,7 @@
 					<h3>因为痛，所以叫婚姻</h3>
 					<p>国内首部婚姻疗愈系经典作品，*温暖感人的情感小说，传递婚姻正能量！ 这是一本*真实、*贴切的新生代婚姻生存指南都市情感.</p>
 					<p class="lunb-style">都市言情</p>
-					<p>4613人阅读</p>
+					<p>4614人阅读</p>
 				</div>
 			</a></div>
 			<div class="lunbo-book"><a href="book-details-a.jsp">
@@ -74,7 +91,7 @@
 					<h3>因为痛，所以叫婚姻</h3>
 					<p>国内首部婚姻疗愈系经典作品，*温暖感人的情感小说，传递婚姻正能量！ 这是一本*真实、*贴切的新生代婚姻生存指南都市情感.</p>
 					<p class="lunb-style">都市言情</p>
-					<p>4613人阅读</p>
+					<p>4615人阅读</p>
 				</div>
 			</a></div>
 			<div class="lunbo-book"><a href="book-details-a.jsp">
@@ -83,7 +100,7 @@
 					<h3>因为痛，所以叫婚姻</h3>
 					<p>国内首部婚姻疗愈系经典作品，*温暖感人的情感小说，传递婚姻正能量！ 这是一本*真实、*贴切的新生代婚姻生存指南都市情感.</p>
 					<p class="lunb-style">都市言情</p>
-					<p>4613人阅读</p>
+					<p>4616人阅读</p>
 				</div>
 			</a></div>
 			<div class="lunbo-book"><a href="book-details-a.jsp">
@@ -92,7 +109,7 @@
 					<h3>因为痛，所以叫婚姻</h3>
 					<p>国内首部婚姻疗愈系经典作品，*温暖感人的情感小说，传递婚姻正能量！ 这是一本*真实、*贴切的新生代婚姻生存指南都市情感.</p>
 					<p class="lunb-style">都市言情</p>
-					<p>4613人阅读</p>
+					<p>4617人阅读</p>
 				</div>
 			</a></div>
 		</div>

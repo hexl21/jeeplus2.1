@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.books.mapper.BooksMapper">
+    
+	<sql id="booksColumns">
+		a.id AS "id",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag",
+		a.book_pic AS "bookPic",
+		a.book_name AS "bookName",
+		a.category_id AS "category.id",
+		a.book_intro AS "bookIntro",
+		a.book_content AS "bookContent",
+		a.book_readnumber AS "bookReadnumber",
+		a.state AS "state",
+		a.sex AS "sex",
+		a.remarks AS "remarks",
+				
+				
+				
+				
+				
+				
+				
+				
+		category.name AS "category.name"
+	</sql>
+	
+	<sql id="booksJoins">
+		
+		LEFT JOIN book_category category ON category.id = a.category_id
+	</sql>
+	
+    
+	<select id="get" resultType="Books" >
+		SELECT 
+			<include refid="booksColumns"/>
+		FROM books a
+		<include refid="booksJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Books" >
+		SELECT 
+			<include refid="booksColumns"/>
+		FROM books a
+		<include refid="booksJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			${dataScope}
+			<if test="category != null and category.id != null and category.id != ''">
+				AND a.category_id = #{category.id}
+			</if>
+			<if test="remarks != null and remarks != ''">
+				AND a.remarks = #{remarks}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="Books" >
+		SELECT 
+			<include refid="booksColumns"/>
+		FROM books a
+		<include refid="booksJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			${dataScope}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO books(
+			id,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			del_flag,
+			book_pic,
+			book_name,
+			category_id,
+			book_intro,
+			book_content,
+			book_readnumber,
+			state,
+			sex,
+			remarks
+		) VALUES (
+			#{id},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag},
+			#{bookPic},
+			#{bookName},
+			#{category.id},
+			#{bookIntro},
+			#{bookContent},
+			#{bookReadnumber},
+			#{state},
+			#{sex},
+			#{remarks}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE books SET 	
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			book_pic = #{bookPic},
+			book_name = #{bookName},
+			category_id = #{category.id},
+			book_intro = #{bookIntro},
+			book_content = #{bookContent},
+			book_readnumber = #{bookReadnumber},
+			state = #{state},
+			sex = #{sex},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!--物理删除-->
+	<update id="delete">
+		DELETE FROM books
+		WHERE id = #{id}
+	</update>
+	
+	<!--逻辑删除-->
+	<update id="deleteByLogic">
+		UPDATE books SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+	
+	<!-- 根据实体名称和字段名称和字段值获取唯一记录 -->
+	<select id="findUniqueByProperty" resultType="Books" statementType="STATEMENT">
+		select * FROM books  where ${propertyName} = '${value}'
+	</select>
+	
+</mapper>
