@@ -70,8 +70,8 @@
         </property>  
     </bean>  
      <bean id="htmlviewResolver"  
-        class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">  
-        <property name="suffix" value=".html" /> 
+        class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+         <property name="suffix" value=".html"/>
         <property name="order" value="0"></property> 
         <property name="contentType" value="text/html;charset=UTF-8"></property>         
     </bean>  
@@ -81,6 +81,12 @@
 		<property name="suffix" value="${web.view.suffix}"/>
 		<property name="order" value="1"></property> 
 	</bean>
+
+    <!--3.视图解析器 -->
+    <!--	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+            <property name="prefix" value="${web.view.prefix}"></property>
+            <property name="suffix" value=".jsp"></property>
+        </bean>-->
 	<!--<bean class="com.gude.config.SwaggerConfig" /> 使用bean申明可以去掉@configuration-->
 	<!--扫描@configuration注解-->
 	<context:component-scan base-package="com.jeeplus.common.swagger"/>

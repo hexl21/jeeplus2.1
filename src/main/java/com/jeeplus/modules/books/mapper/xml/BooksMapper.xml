@@ -18,6 +18,7 @@
 		a.state AS "state",
 		a.sex AS "sex",
 		a.remarks AS "remarks",
+		a.author AS "author",
 				
 				
 				
@@ -103,7 +104,8 @@
 			book_readnumber,
 			state,
 			sex,
-			remarks
+			remarks,
+			author
 		) VALUES (
 			#{id},
 			#{createBy.id},
@@ -119,7 +121,8 @@
 			#{bookReadnumber},
 			#{state},
 			#{sex},
-			#{remarks}
+			#{remarks},
+			#{author}
 		)
 	</insert>
 	
@@ -135,7 +138,8 @@
 			book_readnumber = #{bookReadnumber},
 			state = #{state},
 			sex = #{sex},
-			remarks = #{remarks}
+			remarks = #{remarks},
+			author = #{author}
 		WHERE id = #{id}
 	</update>
 	
@@ -158,5 +162,6 @@
 	<select id="findUniqueByProperty" resultType="Books" statementType="STATEMENT">
 		select * FROM books  where ${propertyName} = '${value}'
 	</select>
-	
+
+
 </mapper>

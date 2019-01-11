@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--<mapper   namespace="com.jeeplus.modules.books.mapper.BookMapper">-->
+<mapper namespace="com.jeeplus.modules.books.mapper.BookDetailsMapper">
+
+    <resultMap id="booksc" type="com.jeeplus.modules.books.entity.BooksDetailsDTO">
+
+        <association property="books" javaType="com.jeeplus.modules.books.entity.Books">
+            <id column="id" property="id"/>
+            <result column="remarks" property="remarks"/>
+            <result column="create_date" property="createDate"/>
+            <result column="update_date" property="updateDate"/>
+            <result column="book_pic" property="bookPic"/>
+            <result column="book_name" property="bookName"/>
+            <result column="book_intro" property="bookIntro"/>
+            <result column="book_content" property="bookContent"/>
+            <result column="book_readnumber" property="bookReadnumber"/>
+            <result column="state" property="state"/>
+            <result column="sex" property="sex"/>
+            <result column="author" property="author"/>
+            <association property="category" javaType="com.jeeplus.modules.book_category.entity.Category">
+                <id column="cid" property="id"/>
+                <result column="cname" property="name"/>
+            </association>
+        </association>
+        <collection property="chapterList" ofType="com.jeeplus.modules.book_chapter.entity.Chapter">
+            <id column="chid" property="id"/>
+            <result column="chname" property="name"/>
+            <result column="chpath" property="sectionpath"/>
+            <result column="charge" property="charge"/>
+            <result column="content" property="content"/>
+        </collection>
+    </resultMap>
+
+    <!--详情查询-->
+    <select id="selectOneBookDetails" resultMap="booksc">
+        select bss.*,bc.id chid,bc.name chname,bc.sectionpath chpath,bc.charge charge,bc.content content
+        FROM
+        (select b.* from
+        (select bs.*,bc.id cid,bc.name cname from books bs LEFT JOIN book_category bc
+        ON bs.category_id=bc.id)b
+        WHERE b.id=#{id}) bss
+        LEFT JOIN
+        (select * from books_chapter ORDER BY create_date) bc
+        on  bss.id=bc.book_id
+    </select>
+
+
+    <resultMap id="bookch" type="com.jeeplus.modules.books.entity.DetailsDTO">
+        <id column="id" property="id"/>
+        <result column="cid" property="cid"/>
+        <result column="bookPic" property="bookPic"/>
+        <result column="bookName" property="bookName"/>
+        <result column="cname" property="cname"/>
+        <result column="bookIntro" property="bookIntro"/>
+        <result column="bookContent" property="bookContent"/>
+        <result column="bookReadnumber" property="bookReadnumber"/>
+        <result column="state" property="state"/>
+        <result column="sex" property="sex"/>
+        <result column="author" property="author"/>
+        <collection property="chapterLists" ofType="com.jeeplus.modules.book_chapter.entity.Chapter">
+            <id column="chid" property="id"/>
+            <result column="chname" property="name"/>
+            <result column="chpath" property="sectionpath"/>
+            <result column="charge" property="charge"/>
+            <result column="content" property="content"/>
+        </collection>
+    </resultMap>
+    <select id="selectOneBooksDetails" resultMap="bookch">
+        select
+        bss.*,
+        bc.id chid,
+        bc.name chname,
+        bc.sectionpath chpath,
+        bc.charge charge,
+        bc.content content
+        FROM
+        (select b.* from
+        (select
+        bs.id id,
+        bs.book_name bookName,
+        bs.book_intro bookIntro,
+        bs.book_content bookContent,
+        bs.book_readnumber bookReadnumber,
+        bs.book_pic bookPic,
+        bs.state state,
+        bs.sex sex,
+        bs.author author,
+        bc.id cid,
+        bc.name cname
+        from books bs LEFT JOIN book_category bc
+        ON bs.category_id=bc.id)b
+        WHERE b.id=#{id}
+        ) bss
+        LEFT JOIN
+        (select
+        id,book_id,
+        name,content,
+        sectionpath,charge
+        from books_chapter
+        ORDER BY create_date) bc
+        on  bss.id=bc.book_id
+    </select>
+    <select id="selectOneChapter" resultType="com.jeeplus.modules.book_chapter.entity.Chapter">
+        select * from books_chapter WHERE id=#{id};
+    </select>
+
+
+</mapper>

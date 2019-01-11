@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.books.mapper.BookMapper">
+
+
+    <resultMap id="booksc" type="com.jeeplus.modules.books.entity.Books">
+        <id column="id" property="id"/>
+        <result column="remarks" property="remarks"/>
+        <result column="create_date" property="createDate"/>
+        <result column="update_date" property="updateDate"/>
+        <result column="book_pic" property="bookPic"/>
+        <result column="book_name" property="bookName"/>
+        <result column="book_intro" property="bookIntro"/>
+        <result column="book_content" property="bookContent"/>
+        <result column="book_readnumber" property="bookReadnumber"/>
+        <result column="state" property="state"/>
+        <result column="sex" property="sex"/>
+        <result column="author" property="author"/>
+        <association property="category" javaType="com.jeeplus.modules.book_category.entity.Category">
+            <id column="cid" property="id"/>
+            <result column="cname" property="name"/>
+        </association>
+
+    </resultMap>
+    <!--轮播图-->
+    <select id="slideshowBooks" resultMap="booksc">
+        select b.* from (select bs.*,bc.id cid,bc.name cname from books bs LEFT JOIN book_category bc
+        ON bs.category_id=bc.id)b order by rand() limit 5;
+    </select>
+
+    <!--主编推荐-->
+    <select id="recommendBooks" resultMap="booksc">
+        select bb.* from
+        (select b.* from
+        (select bs.*,bc.id cid,bc.name cname from books bs LEFT JOIN book_category bc
+        ON bs.category_id=bc.id)b ORDER BY book_readnumber DESC)bb
+         limit 0,7;
+	</select>
+
+    <!--新书上架-->
+    <select id="newBooks" resultMap="booksc">
+		select bb.* from
+        (select b.* from
+        (select bs.*,bc.id cid,bc.name cname from books bs LEFT JOIN book_category bc
+        ON bs.category_id=bc.id)b
+         ORDER BY create_date DESC)bb
+         limit 0,5;
+	</select>
+
+    <!--连载精品-->
+    <select id="serialBooks" resultMap="booksc">
+        select bb.* from
+        (select b.* from
+        (select bs.*,bc.id cid,bc.name cname from books bs LEFT JOIN book_category bc
+        ON bs.category_id=bc.id)b where state='1' ORDER BY book_readnumber DESC)bb
+         limit 0,5;
+	</select>
+
+
+    <!--完结精品-->
+    <select id="completionBooks" resultMap="booksc">
+        select bb.* from
+        (select b.* from
+        (select bs.*,bc.id cid,bc.name cname from books bs LEFT JOIN book_category bc
+        ON bs.category_id=bc.id)b where state='0' ORDER BY book_readnumber DESC)bb
+         limit 0,5;
+	</select>
+
+
+    <!--(书库)条件查询-->
+    <select id="selectConditionBooks" resultMap="booksc">
+        select b.* from
+        (select bs.*,bc.id cid,bc.name cname from books bs LEFT JOIN book_category bc
+        ON bs.category_id=bc.id)b
+        <where>
+            <if test="cname!=null">
+                and cname=#{cname}
+            </if>
+
+            <if test="sex!=null">
+                and sex=#{sex}
+            </if>
+
+            <if test="state!=null">
+                and state=#{state}
+            </if>
+        </where>
+        <if test="sss!=null">
+            ORDER BY create_date DESC;
+        </if>
+    </select>
+
+
+    <!--(搜索)条件查询-->
+    <select id="seekBooks" resultMap="booksc">
+		select b.* from
+		(select bs.*,bc.id cid,bc.name cname from books bs LEFT JOIN book_category bc
+		ON bs.category_id=bc.id)b
+		where book_name like #{name};
+	</select>
+
+    <select id="popularityBooks" resultMap="booksc">
+		 select bb.* from
+        (select b.* from
+        (select bs.*,bc.id cid,bc.name cname from books bs LEFT JOIN book_category bc
+        ON bs.category_id=bc.id)b ORDER BY book_readnumber DESC)bb
+         limit 0,12;
+	</select>
+
+</mapper>

@@ -44,7 +44,7 @@
 			<i><img src="images/index-tou.png"/></i>
 			<span>Lucky</span>
 		</div>
-		<a class="cen-a" href="###">个人中心</a>
+        <a class="cen-a" href="personal.jsp">个人中心</a>
 	</div>
 	<div class="top-div">
 		<div class="top-p">

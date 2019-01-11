@@ -164,8 +164,15 @@ $(document).ready(function() {
 		        title: '备注信息',
 		        sortable: true,
 		        sortName: 'remarks'
-		       
-		    }
+
+                   }
+                   , {
+                       field: 'author',
+                       title: '作者',
+                       sortable: true,
+                       sortName: 'author'
+
+                   }
 		     ]
 		
 		});

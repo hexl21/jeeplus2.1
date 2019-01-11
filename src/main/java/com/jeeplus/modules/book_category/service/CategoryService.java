@@ -3,20 +3,19 @@
  */
 package com.jeeplus.modules.book_category.service;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.jeeplus.core.persistence.Page;
 import com.jeeplus.core.service.CrudService;
 import com.jeeplus.modules.book_category.entity.Category;
 import com.jeeplus.modules.book_category.mapper.CategoryMapper;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * 管理类别Service
  * @author 高龙
- * @version 2019-01-04
+ * @version 2019-01-07
  */
 @Service
 @Transactional(readOnly = true)

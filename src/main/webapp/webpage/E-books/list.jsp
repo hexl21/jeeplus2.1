@@ -9,7 +9,7 @@
 		<script type="text/javascript" src="js/jquery.1.8.2.min.js" ></script>
 		<script type="text/javascript" src="js/TouchSlide.1.1.js" ></script>
 		<script type="text/javascript" src="js/book.js" ></script>
-		<title>书库</title>
+        <title>榜单</title>
 	</head>
 <body style="background: #f1f1f1;">
 <div class="index-head">
@@ -45,7 +45,7 @@
 			<i><img src="images/index-tou.png"/></i>
 			<span>Lucky</span>
 		</div>
-		<a class="cen-a" href="###">个人中心</a>
+        <a class="cen-a" href="personal.jsp">个人中心</a>
 	</div>
 	<div class="list-div">
 		<div class="lib-book">

@@ -3,13 +3,12 @@
  */
 package com.jeeplus.modules.sys.mapper;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
-
 import com.jeeplus.core.persistence.BaseMapper;
 import com.jeeplus.core.persistence.annotation.MyBatisMapper;
 import com.jeeplus.modules.sys.entity.User;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * 用户MAPPER接口
@@ -77,16 +76,16 @@ public interface UserMapper extends BaseMapper<User> {
 	/**
 	 * 插入好友
 	 */
-	public int insertFriend(@Param("id")String id, @Param("userId")String userId, @Param("friendId")String friendId);
+    public int insertFriend(@Param("id") String id, @Param("userId") String userId, @Param("friendId") String friendId);
 	
 	/**
 	 * 查找好友
 	 */
-	public User findFriend(@Param("userId")String userId, @Param("friendId")String friendId);
+    public User findFriend(@Param("userId") String userId, @Param("friendId") String friendId);
 	/**
 	 * 删除好友
 	 */
-	public void deleteFriend(@Param("userId")String userId, @Param("friendId")String friendId);
+    public void deleteFriend(@Param("userId") String userId, @Param("friendId") String friendId);
 	
 	/**
 	 * 

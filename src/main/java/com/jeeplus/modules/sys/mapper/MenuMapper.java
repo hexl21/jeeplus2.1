@@ -3,13 +3,12 @@
  */
 package com.jeeplus.modules.sys.mapper;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
-
 import com.jeeplus.core.persistence.BaseMapper;
 import com.jeeplus.core.persistence.annotation.MyBatisMapper;
 import com.jeeplus.modules.sys.entity.Menu;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * 菜单MAPPER接口
@@ -28,10 +27,10 @@ public interface MenuMapper extends BaseMapper<Menu> {
 	public int updateSort(Menu menu);
 	
 	public List<Menu> getChildren(String parentId);
-	
-	public void deleteMenuRole(@Param(value="menu_id")String menu_id);
-	
-	public void deleteMenuDataRule(@Param(value="menu_id")String menu_id);
+
+    public void deleteMenuRole(@Param(value = "menu_id") String menu_id);
+
+    public void deleteMenuDataRule(@Param(value = "menu_id") String menu_id);
 	
 	public List<Menu> findAllDataRuleList(Menu menu);
 

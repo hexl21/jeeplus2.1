@@ -12,23 +12,23 @@
 <div class="index-head">
 <div class="header">
 	<ul>
-		<li class="on"><a href="###">
+        <li class="on"><a href="index.jsp">
 				<i><img src="images/index-h1.png"/></i>
 				<span>首页</span>
 		</a></li>
-		<li><a href="###">
+        <li><a href="library.jsp">
 				<i><img src="images/index-h2.png"/></i>
 				<span>书库</span>
 		</a></li>
-		<li><a href="###">
+        <li><a href="list.jsp">
 				<i><img src="images/index-h3.png"/></i>
 				<span>榜单</span>
 		</a></li>
-		<li><a href="###">
+        <li><a href="search.jsp">
 				<i><img src="images/index-h4.png"/></i>
 				<span>搜索</span>
 		</a></li>
-		<li><a href="###">
+        <li><a href="top-up.jsp">
 				<i><img src="images/index-h5.png"/></i>
 				<span>充值</span>
 		</a></li>

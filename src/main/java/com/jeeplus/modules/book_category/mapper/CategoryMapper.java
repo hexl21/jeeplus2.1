@@ -10,7 +10,7 @@ import com.jeeplus.modules.book_category.entity.Category;
 /**
  * 管理类别MAPPER接口
  * @author 高龙
- * @version 2019-01-04
+ * @version 2019-01-07
  */
 @MyBatisMapper
 public interface CategoryMapper extends BaseMapper<Category> {

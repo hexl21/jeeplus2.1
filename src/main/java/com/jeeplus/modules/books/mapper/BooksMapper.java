@@ -16,5 +16,4 @@ import com.jeeplus.modules.books.entity.Books;
 public interface BooksMapper extends BaseMapper<Books> {
 
 
-	
 }

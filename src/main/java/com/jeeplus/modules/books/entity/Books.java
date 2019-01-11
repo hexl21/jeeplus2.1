@@ -3,10 +3,9 @@
  */
 package com.jeeplus.modules.books.entity;
 
-import com.jeeplus.modules.book_category.entity.Category;
-
-import com.jeeplus.core.persistence.DataEntity;
 import com.jeeplus.common.utils.excel.annotation.ExcelField;
+import com.jeeplus.core.persistence.DataEntity;
+import com.jeeplus.modules.book_category.entity.Category;
 
 /**
  * 管理图书Entity
@@ -21,9 +20,10 @@ public class Books extends DataEntity<Books> {
 	private Category category;		// 所属类别
 	private String bookIntro;		// 简介
 	private String bookContent;		// 内容
-	private String bookReadnumber;		// 阅读人数
+    private Integer bookReadnumber;        // 阅读人数
 	private String state;		// 图书状态
 	private String sex;		// 适合性别
+    private String author;        // 作者
 	
 	public Books() {
 		super();
@@ -79,11 +79,11 @@ public class Books extends DataEntity<Books> {
 	}
 	
 	@ExcelField(title="阅读人数", align=2, sort=11)
-	public String getBookReadnumber() {
+    public Integer getBookReadnumber() {
 		return bookReadnumber;
 	}
 
-	public void setBookReadnumber(String bookReadnumber) {
+    public void setBookReadnumber(Integer bookReadnumber) {
 		this.bookReadnumber = bookReadnumber;
 	}
 	
@@ -104,5 +104,14 @@ public class Books extends DataEntity<Books> {
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
+
+    @ExcelField(title = "作者", align = 2, sort = 15)
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 	
 }

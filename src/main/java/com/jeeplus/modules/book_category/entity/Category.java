@@ -4,13 +4,13 @@
 package com.jeeplus.modules.book_category.entity;
 
 
-import com.jeeplus.core.persistence.DataEntity;
 import com.jeeplus.common.utils.excel.annotation.ExcelField;
+import com.jeeplus.core.persistence.DataEntity;
 
 /**
  * 管理类别Entity
  * @author 高龙
- * @version 2019-01-04
+ * @version 2019-01-07
  */
 public class Category extends DataEntity<Category> {
 	
