@@ -1,7 +1,7 @@
 package com.jeeplus.modules.books.entity;
 
 
-import com.jeeplus.modules.book_chapter.entity.Chapter;
+import com.jeeplus.modules.ebook.entity.Chapter;
 
 import java.io.Serializable;
 import java.util.List;

@@ -1,6 +1,5 @@
 package com.jeeplus.modules.books.service.impl;
 
-import com.jeeplus.modules.book_chapter.entity.Chapter;
 import com.jeeplus.modules.books.entity.BooksDetailsDTO;
 import com.jeeplus.modules.books.entity.DetailsDTO;
 import com.jeeplus.modules.books.mapper.BookDetailsMapper;
@@ -26,8 +25,4 @@ public class BookDetailsServiceImpl implements BookDetailsService {
         return bookDetailsMapper.selectOneBooksDetails(id);
     }
 
-    @Override
-    public Chapter selectOneChapter(String id) {
-        return bookDetailsMapper.selectOneChapter(id);
-    }
 }

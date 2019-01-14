@@ -105,7 +105,7 @@
                         console.log(dta.rows);
                         var selectConditionBookshtm = "";
                         for (var i = 0; i < dta.rows.length; i++) {
-                            selectConditionBookshtm += "<div class=\"lunbo-book\"><a href=\"book-details-a.jsp\">\n" +
+                            selectConditionBookshtm += "<div class=\"lunbo-book\"><a href=\"${pageContext.request.contextPath}/selectOneBookDetails?id=" + dta.rows[i].id + "\">\n" +
                                 "\t\t\t<div class=\"lunb-img\"><img src=\"" + dta.rows[i].bookPic + "\" /></div>\n" +
                                 "\t\t\t<div class=\"lunb-txt\">\n" +
                                 "\t\t\t\t<h3>" + dta.rows[i].bookName + "</h3>\n" +
@@ -158,8 +158,8 @@
 <div class="library">
 	<div class="index-center clearfix">
 		<div class="cen-left">
-			<i><img src="images/index-tou.png"/></i>
-			<span>Lucky</span>
+			<i><img src="${sessionScope.rows.users.portraitpic}"/></i>
+			<span>${sessionScope.rows.users.username}</span>
 		</div>
         <a class="cen-a" href="personal.jsp">个人中心</a>
 	</div>

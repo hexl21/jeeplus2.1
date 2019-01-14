@@ -1,6 +1,5 @@
 package com.jeeplus.modules.books.web;
 
-import com.jeeplus.modules.book_chapter.entity.Chapter;
 import com.jeeplus.modules.books.entity.DetailsDTO;
 import com.jeeplus.modules.books.service.BookDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,18 +48,5 @@ public class BookDetailsController {
         return "forward:/webpage/E-books/book-details-b.jsp";
     }
 
-
-    @RequestMapping("/pageSkip")
-    public String pageSkip(String id, Map map) {
-        Chapter chapter = bookDetailsService.selectOneChapter(id);
-        map.put("ids", id);
-        map.put("chapter", chapter);
-        System.out.println("id  =*********=> " + id);
-        System.out.println("chapter  =*********=> " + chapter);
-
-
-        return "forward:/webpage/E-books/book-details-c.jsp";
-//        return null;
-    }
 
 }

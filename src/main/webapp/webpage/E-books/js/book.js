@@ -20,10 +20,10 @@ $(function () {
   	/*我的消费*/
   	$('.consu-ul ul').find('li').toggle(function(){
   		$(this).attr("class","on");
-  		$(this).find('img').attr('src','images/con-xia.png');
+        $(this).find('img').attr('src', '${pageContext.request.contextPath}/webpage/E-books/images/con-xia.png');
   	},function(){
   		$(this).attr("class","");
-  		$(this).find('img').attr('src','images/con-zuo.png');
+        $(this).find('img').attr('src', '${pageContext.request.contextPath}/webpage/E-books/images/con-zuo.png');
   	})
   	/*个人中心--充值*/
   	//点击“充值”--显示
@@ -40,7 +40,7 @@ $(function () {
 	//点击“设置”--字号&背景出来
 	$('.book-aset').on('click',function(){
 		$('.book-set').fadeIn();
-		$(this).find('img').attr('src','images/book-b2.png');
+        $(this).find('img').attr('src', '${pageContext.request.contextPath}/webpage/E-books/images/book-b2.png');
 	})
 	$('.book-a').find('.book-sma').on('click',function(){
 		$('.deta-cp').find('p').css('font-size','12px');
@@ -53,12 +53,12 @@ $(function () {
 	})
 	//“白天”-“夜间”
 	var bookDay=document.getElementById("bookday");
-	$('.book-aday').toggle(function(){		
-		$(this).find('img').attr('src','images/book-c2.png');
+	$('.book-aday').toggle(function(){
+        $(this).find('img').attr('src', '${pageContext.request.contextPath}/webpage/E-books/images/book-c2.png');
 		bookDay.innerHTML="白天";
 		$('.index-body').css('background','#000');
-	},function(){		
-		$(this).find('img').attr('src','images/book-c3.png');
+	},function(){
+        $(this).find('img').attr('src', '${pageContext.request.contextPath}/webpage/E-books/images/book-c3.png');
 		bookDay.innerHTML="夜间";
 		$('.index-body').css('background','#fff');
 	})

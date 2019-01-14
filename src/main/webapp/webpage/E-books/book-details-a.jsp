@@ -81,7 +81,8 @@
 		<ul>
 			<c:forEach var="ite" items="${DTO.chapterLists}" end="5">
 				<c:if test="${ite.charge=='0'}">
-					<li><a href="${pageContext.request.contextPath}/pageSkip?id=${ite.id}"><span>${ite.name}</span></a>
+					<li><a href="${pageContext.request.contextPath}/pageSkip?id=${ite.id}"><span
+							style="width: 100%">${ite.name}</span></a>
 					</li>
 				</c:if>
 				<c:if test="${ite.charge=='1'}">

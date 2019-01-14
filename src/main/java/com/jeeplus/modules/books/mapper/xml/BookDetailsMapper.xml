@@ -23,7 +23,7 @@
                 <result column="cname" property="name"/>
             </association>
         </association>
-        <collection property="chapterList" ofType="com.jeeplus.modules.book_chapter.entity.Chapter">
+        <collection property="chapterList" ofType="com.jeeplus.modules.ebook.entity.Chapter">
             <id column="chid" property="id"/>
             <result column="chname" property="name"/>
             <result column="chpath" property="sectionpath"/>
@@ -58,7 +58,7 @@
         <result column="state" property="state"/>
         <result column="sex" property="sex"/>
         <result column="author" property="author"/>
-        <collection property="chapterLists" ofType="com.jeeplus.modules.book_chapter.entity.Chapter">
+        <collection property="chapterLists" ofType="com.jeeplus.modules.ebook.entity.Chapter">
             <id column="chid" property="id"/>
             <result column="chname" property="name"/>
             <result column="chpath" property="sectionpath"/>
@@ -101,7 +101,8 @@
         ORDER BY create_date) bc
         on  bss.id=bc.book_id
     </select>
-    <select id="selectOneChapter" resultType="com.jeeplus.modules.book_chapter.entity.Chapter">
+
+    <select id="selectOneChapter" resultType="com.jeeplus.modules.ebook.entity.Chapter">
         select * from books_chapter WHERE id=#{id};
     </select>
 

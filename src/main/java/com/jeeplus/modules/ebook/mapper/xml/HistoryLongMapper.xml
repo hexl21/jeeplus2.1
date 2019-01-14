@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.ebook.mapper.HistoryLongMapper">
+    <select id="selectOneBooks" resultType="com.jeeplus.modules.books.entity.Books">
+       select id,book_name,book_pic from books WHERE id=#{id};
+   </select>
+
+    <resultMap id="books" type="com.jeeplus.modules.ebook.entity.History">
+        <id column="id" property="id"/>
+        <result column="bookname" property="bookname"/>
+        <result column="chapterid" property="chapterid"/>
+        <result column="bookpic" property="bookpic"/>
+        <result column="date" property="date"/>
+    </resultMap>
+
+    <select id="selectAllHistory" resultMap="books">
+        select id,bookname,chapterid,bookpic,date
+        from history
+        where userid=#{userid}
+        ORDER BY date desc;
+    </select>
+
+    <delete id="daleteOneBookHistory">
+        DELETE from history where id=#{id};
+    </delete>
+</mapper>

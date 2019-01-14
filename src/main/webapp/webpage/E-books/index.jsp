@@ -11,6 +11,21 @@
 		<script type="text/javascript" src="js/book.js" ></script>
 		<script type="text/javascript">
 			$(function () {
+                //自动登录=======(START)=======
+                $.ajax({
+                    url: "${pageContext.request.contextPath}/Login",
+                    dataType: "JSON",
+                    data: {username: "aaaa", password: "aaaa"},
+                    type: "post",
+                    success: function (dta) {
+
+                        //alert("2");
+                        console.log(dta.users.username);
+                        console.log(dta.users.userid);
+
+                    },
+                });
+                //自动登录========(END)========
 
                 //轮播图======(START)=====
                 $.ajax({
@@ -230,8 +245,8 @@
 </div>
 <div class="index-center clearfix">
 	<div class="cen-left">
-		<i><img src="images/index-tou.png"/></i>
-		<span>Lucky</span>
+		<i><img src="${sessionScope.rows.users.portraitpic}"/></i>
+		<span>${sessionScope.rows.users.username}</span>
 	</div>
 	<a class="cen-a" href="personal.jsp">个人中心</a>
 </div>

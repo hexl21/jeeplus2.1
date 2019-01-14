@@ -42,8 +42,8 @@
 <div class="list">
 	<div class="index-center clearfix">
 		<div class="cen-left">
-			<i><img src="images/index-tou.png"/></i>
-			<span>Lucky</span>
+            <i><img src="${sessionScope.rows.users.portraitpic}"/></i>
+            <span>${sessionScope.rows.users.username}</span>
 		</div>
         <a class="cen-a" href="personal.jsp">个人中心</a>
 	</div>

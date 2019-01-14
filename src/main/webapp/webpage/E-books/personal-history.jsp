@@ -4,32 +4,54 @@
 	<head>
 		<meta charset="utf-8" />
     	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-		<link rel="stylesheet" href="css/base.css" />
-		<link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/webpage/E-books/css/base.css"/>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/webpage/E-books/css/style.css"/>
+        <script type="text/javascript"
+                src="${pageContext.request.contextPath}/webpage/E-books/js/jquery.1.8.2.min.js"></script>
+        <script type="text/javascript"
+                src="${pageContext.request.contextPath}/webpage/E-books/js/TouchSlide.1.1.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/webpage/E-books/js/book.js"></script>
+        <script type="text/javascript">
+            function daleteOneBookHistory(id) {
+                // alert(id);
+                //删除历史=======(START)=======
+                $.ajax({
+                    url: "${pageContext.request.contextPath}/daleteOneBookHistory",
+                    dataType: "JSON",
+                    data: {id: id},
+                    type: "post",
+                    success: function (dta) {
+                        alert(dta);
+                        parent.location.reload();
+                    },
+                });
+                //删除历史========(END)========
+            }
+        </script>
 		<title>最近阅读</title>
 	</head>
 <body>
 <div class="index-head">
 <div class="header">
 	<ul>
-        <li class="on"><a href="index.jsp">
-				<i><img src="images/index-h1.png"/></i>
+        <li class="on"><a href="${pageContext.request.contextPath}/webpage/E-books/index.jsp">
+            <i><img src="${pageContext.request.contextPath}/webpage/E-books/images/index-h1.png"/></i>
 				<span>首页</span>
 		</a></li>
-        <li><a href="library.jsp">
-				<i><img src="images/index-h2.png"/></i>
+        <li><a href="${pageContext.request.contextPath}/webpage/E-books/library.jsp">
+            <i><img src="${pageContext.request.contextPath}/webpage/E-books/images/index-h2.png"/></i>
 				<span>书库</span>
 		</a></li>
-        <li><a href="list.jsp">
-				<i><img src="images/index-h3.png"/></i>
+        <li><a href="${pageContext.request.contextPath}/webpage/E-books/list.jsp">
+            <i><img src="${pageContext.request.contextPath}/webpage/E-books/images/index-h3.png"/></i>
 				<span>榜单</span>
 		</a></li>
-        <li><a href="search.jsp">
-				<i><img src="images/index-h4.png"/></i>
+        <li><a href="${pageContext.request.contextPath}/webpage/E-books/search.jsp">
+            <i><img src="${pageContext.request.contextPath}/webpage/E-books/images/index-h4.png"/></i>
 				<span>搜索</span>
 		</a></li>
-        <li><a href="top-up.jsp">
-				<i><img src="images/index-h5.png"/></i>
+        <li><a href="${pageContext.request.contextPath}/webpage/E-books/top-up.jsp">
+            <i><img src="${pageContext.request.contextPath}/webpage/E-books/images/index-h5.png"/></i>
 				<span>充值</span>
 		</a></li>
 	</ul>
@@ -38,24 +60,27 @@
 <div class="collection">
 	<h3 class="coll-tou">阅读历史</h3>
 	<ul>
-		<li>
-			<div class="coll-img"><img src="images/coll-bg.png"/></div>
-			<div class="coll-txt clearfix">
-				<a class="coll-h" href="###">凉生我们可不可以不忧伤</a>
-				<a class="coll-a" href="###">继续阅读</a>
-				<p>2018-10-18</p>
-				<input type="button" value="删除" />
-			</div>
-		</li>
-		<li>
-			<div class="coll-img"><img src="images/coll-bg.png"/></div>
-			<div class="coll-txt clearfix">
-				<a class="coll-h" href="###">凉生我们可不可以不忧伤</a>
-				<a class="coll-a" href="###">继续阅读</a>
-				<p>2018-10-18</p>
-				<input type="button" value="删除" />
-			</div>
-		</li>
+        <c:forEach items="${hist}" var="ites">
+            <li>
+                <div class="coll-img"><img src="${ites.bookpic}"/></div>
+                <div class="coll-txt clearfix">
+                    <a class="coll-h" href="###">${ites.bookname}凉生我们可不可以不忧伤</a>
+                    <a class="coll-a" href="${pageContext.request.contextPath}/pageSkip?id=${ites.chapterid}">继续阅读</a>
+                    <p><fmt:formatDate value="${ites.date}" pattern="yyyy-MM-dd"/></p>
+                    <input type="button" value="删除" onclick="daleteOneBookHistory('${ites.id}')"/>
+                </div>
+            </li>
+        </c:forEach>
+
+        <%--		<li>
+                    <div class="coll-img"><img src="images/coll-bg.png"/></div>
+                    <div class="coll-txt clearfix">
+                        <a class="coll-h" href="###">凉生我们可不可以不忧伤</a>
+                        <a class="coll-a" href="###">继续阅读</a>
+                        <p>2018-10-18</p>
+                        <input type="button" value="删除" />
+                    </div>
+                </li>--%>
 	</ul>
 </div>
 </body>
