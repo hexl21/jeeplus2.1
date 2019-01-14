@@ -14,9 +14,8 @@ import java.util.List;
 
 /**
  * 管理章节Service
- *
  * @author 高龙
- * @version 2019-01-12
+ * @version 2019-01-14
  */
 @Service
 @Transactional(readOnly = true)

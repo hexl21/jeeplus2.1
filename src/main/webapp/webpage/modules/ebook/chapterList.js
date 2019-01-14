@@ -243,7 +243,7 @@ $(document).ready(function() {
   function deleteAll(){
 
 		jp.confirm('确认要删除该管理章节记录吗？', function(){
-			jp.loading();
+            jp.loading();
             jp.get("${ctx}/ebook/chapter/deleteAll?ids=" + getIdSelections(), function (data) {
          	  		if(data.success){
          	  			$('#chapterTable').bootstrapTable('refresh');

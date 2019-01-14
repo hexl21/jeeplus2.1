@@ -32,9 +32,8 @@ import java.util.Map;
 
 /**
  * 管理章节Controller
- *
  * @author 高龙
- * @version 2019-01-12
+ * @version 2019-01-14
  */
 @Controller
 @RequestMapping(value = "${adminPath}/ebook/chapter")

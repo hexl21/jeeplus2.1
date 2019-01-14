@@ -9,9 +9,8 @@ import com.jeeplus.modules.books.entity.Books;
 
 /**
  * 管理章节Entity
- *
  * @author 高龙
- * @version 2019-01-12
+ * @version 2019-01-14
  */
 public class Chapter extends DataEntity<Chapter> {
 

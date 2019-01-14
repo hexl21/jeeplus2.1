@@ -10,7 +10,7 @@ import com.jeeplus.modules.ebook.entity.Chapter;
 /**
  * 管理章节MAPPER接口
  * @author 高龙
- * @version 2019-01-12
+ * @version 2019-01-14
  */
 @MyBatisMapper
 public interface ChapterMapper extends BaseMapper<Chapter> {
