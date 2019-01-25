@@ -159,5 +159,6 @@
         </div>
     </div>
 </div>
+<div class="index-top" id="indextop"><img src="images/index-top.png" width="100%"/></div>
 </body>
 </html>

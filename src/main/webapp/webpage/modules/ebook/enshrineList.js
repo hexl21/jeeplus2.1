@@ -86,10 +86,10 @@ contentType = "text/html;charset=UTF-8" % >
 
             }
                 , {
-                    field: 'bookid',
-                    title: '图书ID',
+                    field: 'bookname',
+                    title: '书名',
                     sortable: true,
-                    sortName: 'bookid'
+                    sortName: 'bookname'
                     , formatter: function (value, row, index) {
                         value = jp.unescapeHTML(value);
                     <
@@ -119,10 +119,10 @@ contentType = "text/html;charset=UTF-8" % >
 
                 }
                 , {
-                    field: 'bookname',
-                    title: '书名',
+                    field: 'bookid',
+                    title: '图书ID',
                     sortable: true,
-                    sortName: 'bookname'
+                    sortName: 'bookid'
 
                 }
                 , {
@@ -145,6 +145,13 @@ contentType = "text/html;charset=UTF-8" % >
 
                 }
                 , {
+                    field: 'chaptername',
+                    title: '章节名',
+                    sortable: true,
+                    sortName: 'chaptername'
+
+                }
+                , {
                     field: 'chapterid',
                     title: '章节ID',
                     sortable: true,
@@ -156,6 +163,13 @@ contentType = "text/html;charset=UTF-8" % >
                     title: '用户ID',
                     sortable: true,
                     sortName: 'userid'
+
+                }
+                , {
+                    field: 'date',
+                    title: '当前系统时间',
+                    sortable: true,
+                    sortName: 'date'
 
                 }
                 , {

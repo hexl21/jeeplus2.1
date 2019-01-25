@@ -1,5 +1,6 @@
 package com.jeeplus.modules.ebook.service.impl;
 
+import com.jeeplus.modules.books.entity.Books;
 import com.jeeplus.modules.ebook.entity.History;
 import com.jeeplus.modules.ebook.mapper.HistoryLongMapper;
 import com.jeeplus.modules.ebook.mapper.HistoryMapper;
@@ -42,5 +43,10 @@ public class HistoryLongServiceImpl implements HistoryLongService {
             bool = false;
         }
         return bool;
+    }
+
+    @Override
+    public Books selectOneBooks(String id) {
+        return historyLongMapper.selectOneBooks(id);
     }
 }

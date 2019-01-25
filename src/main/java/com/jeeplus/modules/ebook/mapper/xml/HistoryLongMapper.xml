@@ -5,16 +5,19 @@
        select id,book_name,book_pic from books WHERE id=#{id};
    </select>
 
-    <resultMap id="books" type="com.jeeplus.modules.ebook.entity.History">
-        <id column="id" property="id"/>
-        <result column="bookname" property="bookname"/>
-        <result column="chapterid" property="chapterid"/>
-        <result column="bookpic" property="bookpic"/>
-        <result column="date" property="date"/>
-    </resultMap>
+    <!--   <resultMap id="books" type="com.jeeplus.modules.ebook.entity.History">
+           <id column="id" property="id"/>
+           <result column="bookid" property="bookid"/>
+           <result column="bookname" property="bookname"/>
+           <result column="chapterid" property="chapterid"/>
+           <result column="bookpic" property="bookpic"/>
+           <result column="date" property="date"/>
+           <result column="chaptername" property="chaptername"/>
 
-    <select id="selectAllHistory" resultMap="books">
-        select id,bookname,chapterid,bookpic,date
+       </resultMap>
+   -->
+    <select id="selectAllHistory" resultType="com.jeeplus.modules.ebook.entity.History">
+        select id,bookname,chapterid,bookpic,date,chaptername,bookid
         from history
         where userid=#{userid}
         ORDER BY date desc;

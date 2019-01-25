@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.ebook.mapper.EnshrineLongMapper">
+    <select id="selectAllEnshrine" resultType="com.jeeplus.modules.ebook.entity.Enshrine">
+	    select id,bookname,chapterid,bookpic,date,chaptername,bookid
+		from enshrine
+		where userid=#{userid}
+		ORDER BY date desc;
+   </select>
+
+    <delete id="daleteOneBookEnshrine">
+		DELETE from enshrine where id=#{id};
+	</delete>
+
+    <select id="selectOneEnshrine" resultType="com.jeeplus.modules.ebook.entity.Enshrine">
+        select * from enshrine where chapterid=#{cid};
+    </select>
+</mapper>

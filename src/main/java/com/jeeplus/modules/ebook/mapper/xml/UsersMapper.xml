@@ -15,6 +15,7 @@
 		a.money AS "money",
 		a.portraitpic AS "portraitpic",
 		a.state AS "state",
+		a.member AS "member",
 		a.remarks AS "remarks"
 	</sql>
 
@@ -83,6 +84,7 @@
 			money,
 			portraitpic,
 			state,
+			member,
 			remarks
 		) VALUES (
 			#{id},
@@ -97,6 +99,7 @@
 			#{money},
 			#{portraitpic},
 			#{state},
+			#{member},
 			#{remarks}
 		)
 	</insert>
@@ -111,6 +114,7 @@
 			money = #{money},
 			portraitpic = #{portraitpic},
 			state = #{state},
+			member = #{member},
 			remarks = #{remarks}
 		WHERE id = #{id}
 	</update>

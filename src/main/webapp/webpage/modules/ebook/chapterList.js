@@ -157,8 +157,15 @@ $(document).ready(function() {
 		        formatter:function(value, row , index){
 		        	return jp.getDictLabel(${fns:toJson(fns:getDictList('charge'))}, value, "-");
 		        }
-		       
-		    }
+
+                   }
+                   , {
+                       field: 'money',
+                       title: '书币',
+                       sortable: true,
+                       sortName: 'money'
+
+                   }
 			,{
 		        field: 'remarks',
 		        title: '备注信息',

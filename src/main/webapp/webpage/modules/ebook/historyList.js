@@ -145,6 +145,13 @@ contentType = "text/html;charset=UTF-8" % >
 
                 }
                 , {
+                    field: 'chaptername',
+                    title: '章节名',
+                    sortable: true,
+                    sortName: 'chaptername'
+
+                }
+                , {
                     field: 'chapterid',
                     title: '章节ID',
                     sortable: true,

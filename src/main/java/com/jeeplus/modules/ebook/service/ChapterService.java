@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * 管理章节Service
  * @author 高龙
- * @version 2019-01-14
+ * @version 2019-01-24
  */
 @Service
 @Transactional(readOnly = true)
@@ -42,5 +42,5 @@ public class ChapterService extends CrudService<ChapterMapper, Chapter> {
     public void delete(Chapter chapter) {
         super.delete(chapter);
     }
-
+	
 }

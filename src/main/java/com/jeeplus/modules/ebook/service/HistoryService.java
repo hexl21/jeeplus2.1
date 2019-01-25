@@ -14,9 +14,8 @@ import java.util.List;
 
 /**
  * 管理历史Service
- *
  * @author 高龙
- * @version 2019-01-14
+ * @version 2019-01-15
  */
 @Service
 @Transactional(readOnly = true)
@@ -43,5 +42,5 @@ public class HistoryService extends CrudService<HistoryMapper, History> {
     public void delete(History history) {
         super.delete(history);
     }
-
+	
 }

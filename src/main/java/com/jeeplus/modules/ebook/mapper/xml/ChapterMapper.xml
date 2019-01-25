@@ -14,6 +14,7 @@
 		a.content AS "content",
 		a.sectionpath AS "sectionpath",
 		a.charge AS "charge",
+		a.money AS "money",
 		a.remarks AS "remarks",
 				
 				
@@ -92,6 +93,7 @@
 			content,
 			sectionpath,
 			charge,
+			money,
 			remarks
 		) VALUES (
 			#{id},
@@ -105,6 +107,7 @@
 			#{content},
 			#{sectionpath},
 			#{charge},
+			#{money},
 			#{remarks}
 		)
 	</insert>
@@ -118,6 +121,7 @@
 			content = #{content},
 			sectionpath = #{sectionpath},
 			charge = #{charge},
+			money = #{money},
 			remarks = #{remarks}
 		WHERE id = #{id}
 	</update>

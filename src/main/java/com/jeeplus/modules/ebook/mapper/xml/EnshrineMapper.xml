@@ -9,11 +9,13 @@
 		a.update_by AS "updateBy.id",
 		a.update_date AS "updateDate",
 		a.del_flag AS "delFlag",
-		a.bookid AS "bookid",
 		a.bookname AS "bookname",
+		a.bookid AS "bookid",
 		a.bookpic AS "bookpic",
+		a.chaptername AS "chaptername",
 		a.chapterid AS "chapterid",
 		a.userid AS "userid",
+		a.date AS "date",
 		a.remarks AS "remarks"
 	</sql>
 
@@ -76,11 +78,13 @@
 			update_by,
 			update_date,
 			del_flag,
-			bookid,
 			bookname,
+			bookid,
 			bookpic,
+			chaptername,
 			chapterid,
 			userid,
+			date,
 			remarks
 		) VALUES (
 			#{id},
@@ -89,11 +93,13 @@
 			#{updateBy.id},
 			#{updateDate},
 			#{delFlag},
-			#{bookid},
 			#{bookname},
+			#{bookid},
 			#{bookpic},
+			#{chaptername},
 			#{chapterid},
 			#{userid},
+			#{date},
 			#{remarks}
 		)
 	</insert>
@@ -102,11 +108,13 @@
 		UPDATE enshrine SET 	
 			update_by = #{updateBy.id},
 			update_date = #{updateDate},
-			bookid = #{bookid},
 			bookname = #{bookname},
+			bookid = #{bookid},
 			bookpic = #{bookpic},
+			chaptername = #{chaptername},
 			chapterid = #{chapterid},
 			userid = #{userid},
+			date = #{date},
 			remarks = #{remarks}
 		WHERE id = #{id}
 	</update>

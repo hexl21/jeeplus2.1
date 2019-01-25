@@ -69,12 +69,18 @@
             </td>
         </tr>
         <tr>
+            <td class="width-15 active"><label class="pull-right">是否（会员）：</label></td>
+            <td class="width-35">
+                <form:select path="member" class="form-control ">
+                    <form:option value="" label=""/>
+                    <form:options items="${fns:getDictList('member')}" itemLabel="label" itemValue="value"
+                                  htmlEscape="false"/>
+                </form:select>
+            </td>
             <td class="width-15 active"><label class="pull-right">备注信息：</label></td>
             <td class="width-35">
                 <form:textarea path="remarks" htmlEscape="false" rows="4" class="form-control "/>
             </td>
-            <td class="width-15 active"></td>
-            <td class="width-35"></td>
         </tr>
         </tbody>
     </table>

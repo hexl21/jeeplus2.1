@@ -64,7 +64,9 @@
             <li>
                 <div class="coll-img"><img src="${ites.bookpic}"/></div>
                 <div class="coll-txt clearfix">
-                    <a class="coll-h" href="###">${ites.bookname}凉生我们可不可以不忧伤</a>
+                    <a class="coll-h"
+                       href="${pageContext.request.contextPath}/selectOneBookDetails?id=${ites.bookid}">${ites.bookname}</a>
+                    <p>${ites.chaptername}</p>
                     <a class="coll-a" href="${pageContext.request.contextPath}/pageSkip?id=${ites.chapterid}">继续阅读</a>
                     <p><fmt:formatDate value="${ites.date}" pattern="yyyy-MM-dd"/></p>
                     <input type="button" value="删除" onclick="daleteOneBookHistory('${ites.id}')"/>
@@ -83,5 +85,7 @@
                 </li>--%>
 	</ul>
 </div>
+<div class="index-top" id="indextop"><img src="${pageContext.request.contextPath}/webpage/E-books/images/index-top.png"
+                                          width="100%"/></div>
 </body>
 </html>

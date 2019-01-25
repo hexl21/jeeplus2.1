@@ -9,9 +9,8 @@ import com.jeeplus.core.persistence.DataEntity;
 
 /**
  * 管理用户Entity
- *
  * @author 高龙
- * @version 2019-01-12
+ * @version 2019-01-19
  */
 public class Users extends DataEntity<Users> {
 
@@ -22,6 +21,7 @@ public class Users extends DataEntity<Users> {
     private String money;        // 书币
     private String portraitpic;        // 头像
     private String state;        // 用户状态
+    private String member;        // 是否（会员）
 
     public Users() {
         super();
@@ -85,4 +85,13 @@ public class Users extends DataEntity<Users> {
         this.state = state;
     }
 
+    @ExcelField(title = "是否（会员）", dictType = "member", align = 2, sort = 12)
+    public String getMember() {
+        return member;
+    }
+
+    public void setMember(String member) {
+        this.member = member;
+    }
+	
 }

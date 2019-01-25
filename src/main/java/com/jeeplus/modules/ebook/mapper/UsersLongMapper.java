@@ -18,4 +18,6 @@ import org.apache.ibatis.annotations.Param;
 public interface UsersLongMapper extends BaseMapper<Users> {
     public Users selectOneUsers(@Param("username") String username, @Param("password") String password);
 
+    public String selectOneUsersPassword(String password);
+
 }

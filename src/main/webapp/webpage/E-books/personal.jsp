@@ -73,11 +73,11 @@
 				<i><img src="${pageContext.request.contextPath}/webpage/E-books/images/per-e.png"/></i>
 				<span>阅读历史</span>
 			</a></li>
-			<li><a href="${pageContext.request.contextPath}/webpage/E-books/personal-consum.jsp">
+            <li><a href="${pageContext.request.contextPath}/selectAllBuychapter">
 				<i><img src="${pageContext.request.contextPath}/webpage/E-books/images/per-f.png"/></i>
 				<span>消费历史</span>
 			</a></li>
-			<li><a href="${pageContext.request.contextPath}/webpage/E-books/personal-collection.jsp">
+            <li><a href="${pageContext.request.contextPath}/selectAllEnshrine">
 				<i><img src="${pageContext.request.contextPath}/webpage/E-books/images/per-g.png"/></i>
 				<span>收藏</span>
 			</a></li>

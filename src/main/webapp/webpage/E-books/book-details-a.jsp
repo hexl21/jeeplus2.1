@@ -13,11 +13,101 @@
 		<script type="text/javascript" src="${pageContext.request.contextPath}/webpage/E-books/js/book.js"></script>
 		<script type="text/javascript">
 
+            function buychapat(id) {
+
+
+                var member = $("#memberid").val();
+                var bookName = $("#bookNameid").val();
+                // alert(member=="1")
+                //会员
+                if (member == "1") {
+                    // alert(member=="1")
+                    window.location.href = "${pageContext.request.contextPath}/pageSkip?id=" + id;
+                    //非会员
+                } else if (member == "0") {
+                    // alert("非会员  "+id);
+
+                    $.ajax({
+                        url: "${pageContext.request.contextPath}/selectOneChapterCharge",
+                        data: {id: id},
+                        dataType: "JSON",
+                        type: "post",
+                        success: function (dta) {
+
+                            //免费
+                            if (dta.charge == "0") {
+                                // alert("免费 "+id);
+                                window.location.href = "${pageContext.request.contextPath}/pageSkip?id=" + id;
+
+                                //付费
+                            } else if (dta.charge == "1") {
+                                $.ajax({
+                                    url: "${pageContext.request.contextPath}/selectOneBuychapter",
+                                    data: {chapterid: id},
+                                    dataType: "JSON",
+                                    type: "post",
+                                    success: function (dta) {
+                                        // alert(dta.bool)
+                                        //已购买
+                                        if (dta.bool) {
+                                            window.location.href = "${pageContext.request.contextPath}/pageSkip?id=" + id;
+                                            // alert("000000000")
+                                            //未购买
+                                        } else {
+                                            var money = $("#moneyid").val();
+                                            // alert("书币："+money)
+                                            $.ajax({
+                                                url: "${pageContext.request.contextPath}/judgeMoney",
+                                                data: {id: id},
+                                                dataType: "JSON",
+                                                type: "post",
+                                                success: function (dta) {
+                                                    // alert(dta.bool);
+                                                    if (dta.bool) {
+                                                        var con = confirm("是否购买此章节？");
+                                                        if (con) {
+                                                            // alert(con)
+                                                            $.ajax({
+                                                                url: "${pageContext.request.contextPath}/insertChapterAndUpdateUsers",
+                                                                data: {chapterid: id, bookname: bookName},
+                                                                dataType: "JSON",
+                                                                type: "post",
+                                                                success: function (dta) {
+                                                                    window.location.href = "${pageContext.request.contextPath}/pageSkip?id=" + id;
+                                                                }
+                                                            });
+                                                        } else {
+                                                            // alert(con)
+                                                        }
+                                                    } else {
+                                                        alert("书币不足，请用户充值！")
+
+                                                    }
+                                                }
+
+                                            });
+
+
+                                        }
+                                    }
+                                });
+                            }
+
+                        },
+                    });
+
+                }
+
+            }
+
 
 		</script>
 		<title>书籍详情</title>
 	</head>
 <body style="background: #f1f1f1;">
+<input type="hidden" id="memberid" value="${sessionScope.rows.users.member}"/>
+<input type="hidden" id="moneyid" value="${sessionScope.rows.users.money}"/>
+<input type="hidden" id="bookNameid" value="${DTO.bookName}"/>
 <div class="index-head">
 <div class="header">
 	<ul>
@@ -43,14 +133,14 @@
 		</a></li>
 	</ul>
 </div>
-	<div class="index-top" id="indextop"><img
-			src="${pageContext.request.contextPath}/webpage/E-books/images/index-top.png" width="100%"/></div>
+    <div class="index-top" id="indextop">
+        <img src="${pageContext.request.contextPath}/webpage/E-books/images/index-top.png" width="100%"/></div>
 </div>
 <div class="deta-more">
 	<div class="index-center clearfix">
 		<div class="cen-left">
-			<i><img src="${pageContext.request.contextPath}/webpage/E-books/images/index-tou.png"/></i>
-			<span>Lucky</span>
+            <i><img src="${sessionScope.rows.users.portraitpic}"/></i>
+            <span>${sessionScope.rows.users.username}</span>
 		</div>
 		<a class="cen-a" href="${pageContext.request.contextPath}/webpage/E-books/personal.jsp">个人中心</a>
 	</div>
@@ -81,14 +171,19 @@
 		<ul>
 			<c:forEach var="ite" items="${DTO.chapterLists}" end="5">
 				<c:if test="${ite.charge=='0'}">
-					<li><a href="${pageContext.request.contextPath}/pageSkip?id=${ite.id}"><span
-							style="width: 100%">${ite.name}</span></a>
+                    <li>
+                        <a href="javascript:void(0)" onclick="buychapat('${ite.id}')"><span
+                                style="width: 100%">${ite.name}</span></a>
 					</li>
 				</c:if>
 				<c:if test="${ite.charge=='1'}">
 					<li>
-						<a href="${pageContext.request.contextPath}/pageSkip?id=${ite.id}"><span>${ite.name}</span><i><img
-								src="${pageContext.request.contextPath}/webpage/E-books/images/deta-zs.png"/></i></a>
+                            <%--<a href="${pageContext.request.contextPath}/pageSkip?id=${ite.id}"><span>${ite.name}</span><i><img--%>
+                        <a href="javascript:void(0)" onclick="buychapat('${ite.id}')"><span>${ite.name}</span>
+                            <i>
+                                <img src="${pageContext.request.contextPath}/webpage/E-books/images/deta-zs.png"/>
+                            </i>
+                        </a>
 					</li>
 				</c:if>
 			</c:forEach>

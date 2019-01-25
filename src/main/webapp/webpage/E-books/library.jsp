@@ -117,7 +117,6 @@
                         }
                         $("#selectConditionBooksdiv").html(selectConditionBookshtm);
 
-
                     },
                 });
 

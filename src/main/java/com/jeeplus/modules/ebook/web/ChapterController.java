@@ -33,7 +33,7 @@ import java.util.Map;
 /**
  * 管理章节Controller
  * @author 高龙
- * @version 2019-01-14
+ * @version 2019-01-24
  */
 @Controller
 @RequestMapping(value = "${adminPath}/ebook/chapter")
@@ -147,7 +147,7 @@ public class ChapterController extends BaseController {
     public AjaxJson exportFile(Chapter chapter, HttpServletRequest request, HttpServletResponse response) {
         AjaxJson j = new AjaxJson();
         try {
-            String fileName = "管理章节" + DateUtils.getDate("yyyyMMddHHmmss") + ".xlsx";
+            String fileName = "管理章节" + DateUtils.getDate("yyyyMMddHHmmss")+".xlsx";
             Page<Chapter> page = chapterService.findPage(new Page<Chapter>(request, response, -1), chapter);
             new ExportExcel("管理章节", Chapter.class).setDataList(page.getList()).write(response, fileName).dispose();
             j.setSuccess(true);
@@ -199,20 +199,20 @@ public class ChapterController extends BaseController {
      * 下载导入管理章节数据模板
      */
     @ResponseBody
-    @RequiresPermissions("ebook:chapter:import")
+	@RequiresPermissions("ebook:chapter:import")
     @RequestMapping(value = "import/template")
     public AjaxJson importFileTemplate(HttpServletResponse response) {
-        AjaxJson j = new AjaxJson();
-        try {
+		AjaxJson j = new AjaxJson();
+		try {
             String fileName = "管理章节数据导入模板.xlsx";
             List<Chapter> list = Lists.newArrayList();
             new ExportExcel("管理章节数据", Chapter.class, 1).setDataList(list).write(response, fileName).dispose();
             return null;
         } catch (Exception e) {
             j.setSuccess(false);
-            j.setMsg("导入模板下载失败！失败信息：" + e.getMessage());
-        }
-        return j;
+            j.setMsg( "导入模板下载失败！失败信息："+e.getMessage());
+		}
+		return j;
     }
 
 }

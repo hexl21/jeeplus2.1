@@ -17,4 +17,8 @@ import com.jeeplus.modules.ebook.entity.Chapter;
 public interface ChapterLongMapper extends BaseMapper<Chapter> {
     Chapter selectOneChapter(String id);
 
+    String selectOneChapterCharge(String id);
+
+    public String judgeMoney(String chapterid);
+
 }

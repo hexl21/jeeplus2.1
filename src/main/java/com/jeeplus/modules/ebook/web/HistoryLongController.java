@@ -3,9 +3,7 @@ package com.jeeplus.modules.ebook.web;
 import com.jeeplus.modules.books.entity.Books;
 import com.jeeplus.modules.ebook.entity.History;
 import com.jeeplus.modules.ebook.entity.Users;
-import com.jeeplus.modules.ebook.mapper.HistoryLongMapper;
 import com.jeeplus.modules.ebook.service.HistoryLongService;
-import com.jeeplus.modules.ebook.service.HistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,14 +19,14 @@ import java.util.UUID;
 public class HistoryLongController {
     @Autowired
     private HistoryLongService historyLongService;
-    @Autowired
-    private HistoryLongMapper historyLongMapper;
-    @Autowired
-    private HistoryService historyService;
+
+
+    //添加历史
 
     @RequestMapping("/insertHistory")
+    @ResponseBody
     public void insertHistory(History history, HttpSession session) {
-        Books books = historyLongMapper.selectOneBooks(history.getBookid());
+        Books books = historyLongService.selectOneBooks(history.getBookid());
         history.setBookid(books.getId());
         history.setBookname(books.getBookName());
         history.setBookpic(books.getBookPic());
@@ -44,24 +42,28 @@ public class HistoryLongController {
         historyLongService.insertHistory(history);
 
 
-//        historyService.save(history);
-        System.out.println("history  ==>  " + history);
+//        System.out.println("history  ==>  " + history);
     }
 
+    //查询所有历史
     @RequestMapping("/selectAllHistory")
     public String selectAllHistory(Map map, HttpSession session) {
         Map umap = (Map) session.getAttribute("rows");
         Users users = (Users) umap.get("users");
         String userid1 = users.getId();
         List<History> histories = historyLongService.selectAllHistory(userid1);
+        System.out.println(histories);
         map.put("hist", histories);
         return "forward:/webpage/E-books/personal-history.jsp";
     }
 
+    //删除历史
     @RequestMapping("/daleteOneBookHistory")
     @ResponseBody
     public Boolean daleteOneBookHistory(String id) {
         System.out.println("```" + id);
         return historyLongService.daleteOneBookHistory(id);
     }
+
+
 }

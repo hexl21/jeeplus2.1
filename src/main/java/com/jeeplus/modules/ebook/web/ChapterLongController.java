@@ -5,6 +5,7 @@ import com.jeeplus.modules.ebook.service.ChapterLongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Map;
 
@@ -20,10 +21,14 @@ public class ChapterLongController {
         map.put("ids", id);
         map.put("chapter", chapter);
         System.out.println("id  =*********=> " + id);
-        System.out.println("chapter  =*********=> " + chapter);
-
-
+//        System.out.println("chapter  =*********=> " + chapter);
         return "forward:/webpage/E-books/book-details-c.jsp";
-//        return null;
+    }
+
+    @RequestMapping("/selectOneChapterCharge")
+    @ResponseBody
+    public Map selectOneChapterCharge(String id) {
+
+        return chapterLongService.selectOneChapterCharge(id);
     }
 }

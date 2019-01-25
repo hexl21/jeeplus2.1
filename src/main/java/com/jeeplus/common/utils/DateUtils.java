@@ -3,11 +3,11 @@
  */
 package com.jeeplus.common.utils;
 
+import org.apache.commons.lang3.time.DateFormatUtils;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import org.apache.commons.lang3.time.DateFormatUtils;
 
 /**
  * 日期工具类, 继承org.apache.commons.lang.time.DateUtils类
@@ -220,4 +220,8 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 		long time = new Date().getTime()-parseDate("2012-11-19").getTime();
 		System.out.println(time/(24*60*60*1000));
 	}
+
+    public static String date2String(String s, Date time) {
+        return null;
+    }
 }

@@ -52,28 +52,30 @@
             <td class="width-35">
                 <sys:fileUpload path="bookpic" value="${history.bookpic}" type="file" uploadPath="/ebook/history"/>
             </td>
+            <td class="width-15 active"><label class="pull-right">章节名：</label></td>
+            <td class="width-35">
+                <form:input path="chaptername" htmlEscape="false" class="form-control "/>
+            </td>
+        </tr>
+        <tr>
             <td class="width-15 active"><label class="pull-right">章节ID：</label></td>
             <td class="width-35">
                 <form:input path="chapterid" htmlEscape="false" class="form-control "/>
             </td>
-        </tr>
-        <tr>
             <td class="width-15 active"><label class="pull-right">用户ID：</label></td>
             <td class="width-35">
                 <form:input path="userid" htmlEscape="false" class="form-control "/>
             </td>
+        </tr>
+        <tr>
             <td class="width-15 active"><label class="pull-right">当前系统时间：</label></td>
             <td class="width-35">
                 <form:input path="date" htmlEscape="false" class="form-control "/>
             </td>
-        </tr>
-        <tr>
             <td class="width-15 active"><label class="pull-right">备注信息：</label></td>
             <td class="width-35">
                 <form:textarea path="remarks" htmlEscape="false" rows="4" class="form-control "/>
             </td>
-            <td class="width-15 active"></td>
-            <td class="width-35"></td>
         </tr>
         </tbody>
     </table>

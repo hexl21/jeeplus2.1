@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeeplus.modules.ebook.mapper.BuychapterLongMapper">
+
+    <resultMap id="booksChapter" type="com.jeeplus.modules.ebook.entity.Chapter">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="content" property="content"/>
+        <result column="charge" property="charge"/>
+        <result column="money" property="money"/>
+        <result column="create_date" property="createDate"/>
+        <association property="books" javaType="com.jeeplus.modules.books.entity.Books">
+            <result column="book_name" property="bookName"/>
+        </association>
+    </resultMap>
+
+    <select id="selectOneBuychapter" parameterType="java.lang.String" resultType="String">
+		select chapterid FROM buychapter where userid=#{userid} and chapterid=#{chapterid};
+	</select>
+
+    <select id="selectMoney" resultMap="booksChapter">
+		select c.*,b.book_name from
+		(select * from books_chapter WHERE id=#{chapterid})c LEFT JOIN books b
+		on c.book_id=b.id;
+	</select>
+
+    <select id="selectAllBuychapter" resultType="com.jeeplus.modules.ebook.entity.Buychapter">
+		select * from buychapter
+	</select>
+
+
+</mapper>

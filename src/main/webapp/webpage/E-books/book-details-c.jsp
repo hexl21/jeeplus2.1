@@ -4,22 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+
     <link rel="stylesheet" href="${pageContext.request.contextPath}/webpage/E-books/css/base.css"/>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/webpage/E-books/css/style.css"/>
     <script type="text/javascript"
             src="${pageContext.request.contextPath}/webpage/E-books/js/jquery.1.8.2.min.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/webpage/E-books/js/book.js"></script>
     <script type="text/javascript"
-            src="${pageContext.request.contextPath}/webpage/E-books/js/jquery.1.8.2.min.js"></script>
+            src="${pageContext.request.contextPath}/webpage/E-books/js/TouchSlide.1.1.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/webpage/E-books/js/book.js"></script>
+
     <script type="text/javascript">
         $(function () {
             var bid = $("#booksid").val();
             var cid = $("#chapterid").val();
+            var chname = $("#chaptername").val();
             console.log(bid)
             console.log(cid)
+            console.log(chname)
             $.ajax({
                 url: "${pageContext.request.contextPath}/insertHistory",
-                data: {bookid: bid, chapterid: cid},
+                data: {bookid: bid, chapterid: cid, chaptername: chname},
                 dataType: "JSON",
                 type: "post",
                 success: function (dta) {
@@ -29,13 +33,57 @@
 
                 },
             });
-        })
+
+        });
+
+        function funCollect() {
+
+            var cid = $("#chapterid").val();
+            alert(cid);
+            $.ajax({
+                url: "${pageContext.request.contextPath}/selectOneEnshrine",
+                data: {chapterid: cid},
+                dataType: "JSON",
+                type: "post",
+                success: function (dta) {
+                    if (dta.bool) {
+                        alert("1" + dta.bool);
+                    } else {
+                        alert("2" + dta.bool);
+                        var bid = $("#booksid").val();
+                        var cid = $("#chapterid").val();
+                        var chname = $("#chaptername").val();
+                        console.log(bid)
+                        console.log(cid)
+                        console.log(chname)
+                        $.ajax({
+                            url: "${pageContext.request.contextPath}/insertEnshrine",
+                            data: {bookid: bid, chapterid: cid, chaptername: chname},
+                            dataType: "JSON",
+                            type: "post",
+                            success: function (dta) {
+
+                                //alert("2");
+                                // console.log(dta.rows);
+
+                            },
+                        });
+
+                    }
+
+                    // alert(dta.bool==true);
+                    console.log(dta.bool);
+                },
+            });
+        }
     </script>
     <title>书籍详情</title>
 </head>
 <body>
 <input type="hidden" value="${chapter.books.id}" id="booksid">
 <input type="hidden" value="${chapter.id}" id="chapterid">
+<input type="hidden" value="${chapter.name}" id="chaptername">
+
 <div class="index-body">
     <div class="deta-head">
         <a href="${pageContext.request.contextPath}/webpage/E-books/index.jsp" class="deta-index"><i><img
@@ -92,18 +140,18 @@
                 </li>
                 <li class="book-aset">
                     <a href="###">
-                        <i><img src="${pageContext.request.contextPath}/webpage/E-books/images/book-b1.png"/></i>
+                        <i><img src="webpage/E-books/images/book-b1.png"/></i>
                         <span>设置</span>
                     </a>
                 </li>
                 <li class="book-aday">
                     <a href="###">
-                        <i><img src="${pageContext.request.contextPath}/webpage/E-books/images/book-c1.png"/></i>
+                        <i><img src="webpage/E-books/images/book-c1.png"/></i>
                         <span id="bookday">白天</span>
                     </a>
                 </li>
                 <li>
-                    <a href="${pageContext.request.contextPath}/webpage/E-books/personal-collection.jsp">
+                    <a href="###" onclick="funCollect()">
                         <i><img src="${pageContext.request.contextPath}/webpage/E-books/images/book-d.png"/></i>
                         <span>收藏</span>
                     </a>

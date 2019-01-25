@@ -10,7 +10,7 @@ import com.jeeplus.modules.ebook.entity.Users;
 /**
  * 管理用户MAPPER接口
  * @author 高龙
- * @version 2019-01-12
+ * @version 2019-01-19
  */
 @MyBatisMapper
 public interface UsersMapper extends BaseMapper<Users> {

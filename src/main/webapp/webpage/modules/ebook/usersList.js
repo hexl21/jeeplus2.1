@@ -169,6 +169,16 @@ contentType = "text/html;charset=UTF-8" % >
 
                 }
                 , {
+                    field: 'member',
+                    title: '是否（会员）',
+                    sortable: true,
+                    sortName: 'member',
+                    formatter: function (value, row, index) {
+                        return jp.getDictLabel(${fns:toJson(fns:getDictList('member'))}, value, "-");
+                    }
+
+                }
+                , {
                     field: 'remarks',
                     title: '备注信息',
                     sortable: true,

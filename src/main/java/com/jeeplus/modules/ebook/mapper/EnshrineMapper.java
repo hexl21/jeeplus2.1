@@ -9,9 +9,8 @@ import com.jeeplus.modules.ebook.entity.Enshrine;
 
 /**
  * 管理收藏MAPPER接口
- *
  * @author 高龙
- * @version 2019-01-12
+ * @version 2019-01-16
  */
 @MyBatisMapper
 public interface EnshrineMapper extends BaseMapper<Enshrine> {

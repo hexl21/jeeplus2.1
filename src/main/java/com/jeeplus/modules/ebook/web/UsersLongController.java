@@ -42,7 +42,11 @@ public class UsersLongController {
         System.out.println("username ===>" + username);
         System.out.println("password ===>" + password);
         Map map = usersLongService.selectOneUsers(username, password);
+        System.out.println("1");
+        System.out.println(map.get("users"));
+        System.out.println("2");
         session.setAttribute("rows", map);
+        System.out.println("session.getAttribute(rows)==>" + session.getAttribute("rows"));
         return map;
     }
 

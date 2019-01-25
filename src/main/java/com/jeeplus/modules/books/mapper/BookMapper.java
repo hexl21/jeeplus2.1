@@ -44,4 +44,6 @@ public interface BookMapper extends BaseMapper<Books> {
 
     //热门搜索
     public List<Books> popularityBooks();
+
+
 }

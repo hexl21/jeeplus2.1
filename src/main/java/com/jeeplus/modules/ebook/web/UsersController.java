@@ -13,6 +13,7 @@ import com.jeeplus.core.persistence.Page;
 import com.jeeplus.core.web.BaseController;
 import com.jeeplus.modules.ebook.entity.SnowflakeIdWorker;
 import com.jeeplus.modules.ebook.entity.Users;
+import com.jeeplus.modules.ebook.service.UsersLongService;
 import com.jeeplus.modules.ebook.service.UsersService;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -35,9 +36,8 @@ import static com.jeeplus.modules.ebook.utils.MD5.encodeMD5;
 
 /**
  * 管理用户Controller
- *
  * @author 高龙
- * @version 2019-01-12
+ * @version 2019-01-19
  */
 @Controller
 @RequestMapping(value = "${adminPath}/ebook/users")
@@ -45,6 +45,10 @@ public class UsersController extends BaseController {
 
     @Autowired
     private UsersService usersService;
+    //===============(后添代码)==================
+    @Autowired
+    private UsersLongService usersLongService;
+    //===============(后添代码)==================
 
     @ModelAttribute
     public Users get(@RequestParam(required = false) String id) {
@@ -97,17 +101,35 @@ public class UsersController extends BaseController {
     @RequestMapping(value = "save")
     public AjaxJson save(Users users, Model model) throws Exception {
 
+        AjaxJson j = new AjaxJson();
         //=====================(后添的代码)=======================
         SnowflakeIdWorker idWorker = new SnowflakeIdWorker(0, 0);
         long id = idWorker.nextId();
         users.setUserid(id + "");//获取用户id
         String password = users.getPassword();
-        String md5 = encodeMD5(password);
-        users.setPassword(md5);//对密码进行MD5加密
+        System.out.println("Controller=+=password==>" + password);
+        String password1 = usersLongService.selectOneUsersPassword(password);
+        if (password.equals(password1)) {
+            /**
+             * 后台hibernate-validation插件校验
+             */
+            String errMsg = beanValidator(users);
+            if (StringUtils.isNotBlank(errMsg)) {
+                j.setSuccess(false);
+                j.setMsg(errMsg);
+                return j;
+            }
+            //新增或编辑表单保存
+            usersService.save(users);//保存
+            j.setSuccess(true);
+            j.setMsg("保存管理用户成功");
+            return j;
+        } else {
+            String md5 = encodeMD5(password);
+            System.out.println("Controller=+=md5==>" + md5);
+            users.setPassword(md5);//对密码进行MD5加密
+        }
         //====================(后添的代码END)=====================
-
-
-        AjaxJson j = new AjaxJson();
         /**
          * 后台hibernate-validation插件校验
          */
@@ -162,7 +184,7 @@ public class UsersController extends BaseController {
     public AjaxJson exportFile(Users users, HttpServletRequest request, HttpServletResponse response) {
         AjaxJson j = new AjaxJson();
         try {
-            String fileName = "管理用户" + DateUtils.getDate("yyyyMMddHHmmss") + ".xlsx";
+            String fileName = "管理用户" + DateUtils.getDate("yyyyMMddHHmmss")+".xlsx";
             Page<Users> page = usersService.findPage(new Page<Users>(request, response, -1), users);
             new ExportExcel("管理用户", Users.class).setDataList(page.getList()).write(response, fileName).dispose();
             j.setSuccess(true);
@@ -214,20 +236,20 @@ public class UsersController extends BaseController {
      * 下载导入管理用户数据模板
      */
     @ResponseBody
-    @RequiresPermissions("ebook:users:import")
+	@RequiresPermissions("ebook:users:import")
     @RequestMapping(value = "import/template")
     public AjaxJson importFileTemplate(HttpServletResponse response) {
-        AjaxJson j = new AjaxJson();
-        try {
+		AjaxJson j = new AjaxJson();
+		try {
             String fileName = "管理用户数据导入模板.xlsx";
             List<Users> list = Lists.newArrayList();
             new ExportExcel("管理用户数据", Users.class, 1).setDataList(list).write(response, fileName).dispose();
             return null;
         } catch (Exception e) {
             j.setSuccess(false);
-            j.setMsg("导入模板下载失败！失败信息：" + e.getMessage());
-        }
-        return j;
+            j.setMsg( "导入模板下载失败！失败信息："+e.getMessage());
+		}
+		return j;
     }
 
 }

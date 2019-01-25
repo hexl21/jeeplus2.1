@@ -9,9 +9,8 @@ import com.jeeplus.modules.ebook.entity.History;
 
 /**
  * 管理历史MAPPER接口
- *
  * @author 高龙
- * @version 2019-01-14
+ * @version 2019-01-15
  */
 @MyBatisMapper
 public interface HistoryMapper extends BaseMapper<History> {

@@ -14,9 +14,8 @@ import java.util.List;
 
 /**
  * 管理用户Service
- *
  * @author 高龙
- * @version 2019-01-12
+ * @version 2019-01-19
  */
 @Service
 @Transactional(readOnly = true)
@@ -43,5 +42,5 @@ public class UsersService extends CrudService<UsersMapper, Users> {
     public void delete(Users users) {
         super.delete(users);
     }
-
+	
 }

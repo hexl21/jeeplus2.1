@@ -14,9 +14,8 @@ import java.util.List;
 
 /**
  * 管理收藏Service
- *
  * @author 高龙
- * @version 2019-01-12
+ * @version 2019-01-16
  */
 @Service
 @Transactional(readOnly = true)
@@ -43,5 +42,5 @@ public class EnshrineService extends CrudService<EnshrineMapper, Enshrine> {
     public void delete(Enshrine enshrine) {
         super.delete(enshrine);
     }
-
+	
 }

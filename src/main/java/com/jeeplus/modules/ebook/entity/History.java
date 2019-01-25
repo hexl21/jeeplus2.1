@@ -11,9 +11,8 @@ import java.util.Date;
 
 /**
  * 管理历史Entity
- *
  * @author 高龙
- * @version 2019-01-14
+ * @version 2019-01-15
  */
 public class History extends DataEntity<History> {
 
@@ -21,6 +20,7 @@ public class History extends DataEntity<History> {
     private String bookname;        // 书名
     private String bookid;        // 图书ID
     private String bookpic;        // 图书封面
+    private String chaptername;        // 章节名
     private String chapterid;        // 章节ID
     private String userid;        // 用户ID
     private Date date;        // 当前系统时间
@@ -60,7 +60,16 @@ public class History extends DataEntity<History> {
         this.bookpic = bookpic;
     }
 
-    @ExcelField(title = "章节ID", align = 2, sort = 9)
+    @ExcelField(title = "章节名", align = 2, sort = 9)
+    public String getChaptername() {
+        return chaptername;
+    }
+
+    public void setChaptername(String chaptername) {
+        this.chaptername = chaptername;
+    }
+
+    @ExcelField(title = "章节ID", align = 2, sort = 10)
     public String getChapterid() {
         return chapterid;
     }
@@ -69,7 +78,7 @@ public class History extends DataEntity<History> {
         this.chapterid = chapterid;
     }
 
-    @ExcelField(title = "用户ID", align = 2, sort = 10)
+    @ExcelField(title = "用户ID", align = 2, sort = 11)
     public String getUserid() {
         return userid;
     }
@@ -79,7 +88,7 @@ public class History extends DataEntity<History> {
     }
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ExcelField(title = "当前系统时间", align = 2, sort = 11)
+    @ExcelField(title = "当前系统时间", align = 2, sort = 12)
     public Date getDate() {
         return date;
     }
@@ -87,5 +96,5 @@ public class History extends DataEntity<History> {
     public void setDate(Date date) {
         this.date = date;
     }
-
+	
 }

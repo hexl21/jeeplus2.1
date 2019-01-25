@@ -20,7 +20,6 @@
             <id column="cid" property="id"/>
             <result column="cname" property="name"/>
         </association>
-
     </resultMap>
     <!--轮播图-->
     <select id="slideshowBooks" resultMap="booksc">

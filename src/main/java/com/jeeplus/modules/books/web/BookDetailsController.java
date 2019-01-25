@@ -24,7 +24,7 @@ public class BookDetailsController {
 //        map.put("DTO", booksDetailsDTO);
         DetailsDTO detailsDTO = bookDetailsService.selectOneBooksDetails(id);
         map.put("DTO", detailsDTO);
-        System.out.println("detailsDTO  ===>  " + detailsDTO);
+//        System.out.println("detailsDTO  ===>  " + detailsDTO);
 
 
 //        session.setAttribute("DTO", booksDetailsDTO);
@@ -41,10 +41,10 @@ public class BookDetailsController {
 
     @RequestMapping("/selectOneBookDetailsb")
     public String selectOneBookDetailsb(String id, Map map) {
-        System.out.println("id===---===> " + id);  //selectOneBooksDetails
+        System.out.println("id===---===> " + id);
         DetailsDTO detailsDTO = bookDetailsService.selectOneBooksDetails(id);
         map.put("DTO2", detailsDTO);
-        System.out.println("detailsDTO  ===>>  " + detailsDTO);
+//        System.out.println("detailsDTO  ===>>  " + detailsDTO);
         return "forward:/webpage/E-books/book-details-b.jsp";
     }
 

@@ -15,13 +15,13 @@
                 $.ajax({
                     url: "${pageContext.request.contextPath}/Login",
                     dataType: "JSON",
-                    data: {username: "aaaa", password: "aaaa"},
+                    data: {username: "bbbb", password: "bbbb"},
                     type: "post",
                     success: function (dta) {
 
                         //alert("2");
-                        console.log(dta.users.username);
-                        console.log(dta.users.userid);
+                        // console.log(dta.users.username);
+                        // console.log(dta.users.userid);
 
                     },
                 });
@@ -35,13 +35,13 @@
                     success: function (dta) {
 
                         //alert("2");
-                        console.log(dta.rows);
+                        // console.log(dta.rows);
 
                         var slideshowBookshtm = "";
 
                         for (var i = 0; i < dta.rows.length; i++) {
 
-                            console.log(dta.rows[i].id);
+                            // console.log(dta.rows[i].id);
 
 
                             // "<a onclick='chapters(\""+dta.rows[i].id+"\")'>\n"
@@ -81,6 +81,7 @@
                                 "\t\t\t\t<a class=\"sea-p\" href=\"###\">" + dta.rows[i].bookName + "</a>\n" +
                                 "\t\t\t</li>";
                         }
+
                         recommendBookshtm += "</ul>";
                         $("#recommendBooksdiv01").html(recommendBookshtm);
 
@@ -91,6 +92,7 @@
                                 "\t\t\t<span class=\"ed-a\">" + dta.rows[i].bookName + "</span>\n" +
                                 "\t\t\t<span class=\"ed-b\">" + dta.rows[i].category.name + "</span>\n" +
                                 "\t\t</a>";
+
                         }
                         $("#recommendBooksdiv02").html(recommendBookshtm2);
 

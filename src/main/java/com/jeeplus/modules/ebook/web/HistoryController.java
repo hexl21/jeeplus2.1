@@ -32,9 +32,8 @@ import java.util.Map;
 
 /**
  * 管理历史Controller
- *
  * @author 高龙
- * @version 2019-01-14
+ * @version 2019-01-15
  */
 @Controller
 @RequestMapping(value = "${adminPath}/ebook/history")
@@ -148,7 +147,7 @@ public class HistoryController extends BaseController {
     public AjaxJson exportFile(History history, HttpServletRequest request, HttpServletResponse response) {
         AjaxJson j = new AjaxJson();
         try {
-            String fileName = "管理历史" + DateUtils.getDate("yyyyMMddHHmmss") + ".xlsx";
+            String fileName = "管理历史" + DateUtils.getDate("yyyyMMddHHmmss")+".xlsx";
             Page<History> page = historyService.findPage(new Page<History>(request, response, -1), history);
             new ExportExcel("管理历史", History.class).setDataList(page.getList()).write(response, fileName).dispose();
             j.setSuccess(true);
@@ -200,20 +199,20 @@ public class HistoryController extends BaseController {
      * 下载导入管理历史数据模板
      */
     @ResponseBody
-    @RequiresPermissions("ebook:history:import")
+	@RequiresPermissions("ebook:history:import")
     @RequestMapping(value = "import/template")
     public AjaxJson importFileTemplate(HttpServletResponse response) {
-        AjaxJson j = new AjaxJson();
-        try {
+		AjaxJson j = new AjaxJson();
+		try {
             String fileName = "管理历史数据导入模板.xlsx";
             List<History> list = Lists.newArrayList();
             new ExportExcel("管理历史数据", History.class, 1).setDataList(list).write(response, fileName).dispose();
             return null;
         } catch (Exception e) {
             j.setSuccess(false);
-            j.setMsg("导入模板下载失败！失败信息：" + e.getMessage());
-        }
-        return j;
+            j.setMsg( "导入模板下载失败！失败信息："+e.getMessage());
+		}
+		return j;
     }
 
 }

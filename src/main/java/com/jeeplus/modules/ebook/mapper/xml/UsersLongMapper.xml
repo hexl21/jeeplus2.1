@@ -5,4 +5,8 @@
 		select * from users where username=#{username} and password=#{password}
 	</select>
 
+    <select id="selectOneUsersPassword" parameterType="java.lang.String" resultType="String">
+		SELECT password from users where password=#{password};
+	</select>
+
 </mapper>

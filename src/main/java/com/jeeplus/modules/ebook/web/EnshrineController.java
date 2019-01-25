@@ -32,9 +32,8 @@ import java.util.Map;
 
 /**
  * 管理收藏Controller
- *
  * @author 高龙
- * @version 2019-01-12
+ * @version 2019-01-16
  */
 @Controller
 @RequestMapping(value = "${adminPath}/ebook/enshrine")
@@ -148,7 +147,7 @@ public class EnshrineController extends BaseController {
     public AjaxJson exportFile(Enshrine enshrine, HttpServletRequest request, HttpServletResponse response) {
         AjaxJson j = new AjaxJson();
         try {
-            String fileName = "管理收藏" + DateUtils.getDate("yyyyMMddHHmmss") + ".xlsx";
+            String fileName = "管理收藏" + DateUtils.getDate("yyyyMMddHHmmss")+".xlsx";
             Page<Enshrine> page = enshrineService.findPage(new Page<Enshrine>(request, response, -1), enshrine);
             new ExportExcel("管理收藏", Enshrine.class).setDataList(page.getList()).write(response, fileName).dispose();
             j.setSuccess(true);
@@ -200,20 +199,20 @@ public class EnshrineController extends BaseController {
      * 下载导入管理收藏数据模板
      */
     @ResponseBody
-    @RequiresPermissions("ebook:enshrine:import")
+	@RequiresPermissions("ebook:enshrine:import")
     @RequestMapping(value = "import/template")
     public AjaxJson importFileTemplate(HttpServletResponse response) {
-        AjaxJson j = new AjaxJson();
-        try {
+		AjaxJson j = new AjaxJson();
+		try {
             String fileName = "管理收藏数据导入模板.xlsx";
             List<Enshrine> list = Lists.newArrayList();
             new ExportExcel("管理收藏数据", Enshrine.class, 1).setDataList(list).write(response, fileName).dispose();
             return null;
         } catch (Exception e) {
             j.setSuccess(false);
-            j.setMsg("导入模板下载失败！失败信息：" + e.getMessage());
-        }
-        return j;
+            j.setMsg( "导入模板下载失败！失败信息："+e.getMessage());
+		}
+		return j;
     }
 
 }
